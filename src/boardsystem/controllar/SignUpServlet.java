@@ -24,3 +24,4 @@ public class SignUpServlet extends HttpServlet {
 		HttpServletResponse response) throws IOException, ServletException {
 
 	}
+}
