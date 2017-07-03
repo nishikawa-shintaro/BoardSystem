@@ -91,7 +91,7 @@ public class SignUpServlet extends HttpServlet{
 		String login_id = request.getParameter("login_id");
 		String password = request.getParameter("password");
 		int branch_id = Integer.parseInt(request.getParameter("branch_id"));
-		int possition_id = Integer.parseInt(request.getParameter("possition_id"));
+		int possition_id = Integer.parseInt(request.getParameter("possition"));
 		String checkPassword =request.getParameter("checkPassword");
 
 		if(StringUtils.isBlank(name) == true) {
