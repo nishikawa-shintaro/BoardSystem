@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ユーザー新規登録画面</title>
+<link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -41,6 +42,34 @@
 
 	<label for="name">名前(10文字以下)</label><br>
 	<input name="name" id="name" value="${newUser.name }"/><br />
+
+	<label for="branch_id">支店名</label><br>
+	<select name="branch_id">
+		<option value="0">選択してください</option>
+			<c:forEach items="${branches}" var="branch">
+			<c:if test="${newUser.branch_id == branch.id }">
+					<option selected value="${branch.id}">${branch.name } </option>
+				</c:if>
+				<c:if test="${newUser.branch_id != branch.id }">
+					<option  value="${branch.id}">${branch.name } </option>
+				</c:if>
+		</c:forEach>
+	</select>
+
+	<br><label for="department">部署・役職</label><br>
+	<select name="department">
+		<option value="0">選択してください</option>
+			<c:forEach items="${departments }" var="department">
+				<c:if test="${newUser.department_id == department.id }" >
+				<option selected value="${department.id}"> ${department.name } </option>
+				</c:if>
+				<c:if test="${newUser.department_id != department.id }" >
+				<option value ="${department.id }">${department.name }</option>
+			</c:if>
+			</c:forEach>
+	</select>
+
+	<br /><br /><input type="submit" value="登録" />
 
 </form>
 <div class="copyright">Copyright(c)Shintaro Nishikawa</div>

@@ -15,6 +15,7 @@ import boardsystem.exception.SQLRuntimeException;
 
 public class UserDao {
 
+	//入力されたデータが一致しているか判定する
 	public User getLoginUser(Connection connection, String login_id, String password) {
 		PreparedStatement ps =null;
 		try {
@@ -40,6 +41,7 @@ public class UserDao {
 
 	private static List<User> toUserList(ResultSet rs) throws SQLException {
 
+		//ユーザー情報を取得する処理
 		List<User> ret = new ArrayList<User>();
 		try {
 			while (rs.next()) {
@@ -70,6 +72,73 @@ public class UserDao {
 			return ret;
 		} finally {
 			close(rs);
+		}
+	}
+
+	//ユーザー情報を登録する処理
+
+	public void insert(Connection connection, User user) {
+
+		PreparedStatement ps = null;
+
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append("INSERT INTO users( ");
+			sql.append(" login_id");
+			sql.append(", password");
+			sql.append(", name");
+			sql.append(", branch_id");
+			sql.append(", possition_id");
+			sql.append(", insert_date");
+			sql.append(", update_date");
+			sql.append(") VALUES (");
+			sql.append(" ?"); // login_id
+			sql.append(", ?"); // passwprd
+			sql.append(", ?"); // name
+			sql.append(", ?"); // branch_id
+			sql.append(", ?"); // possition_id
+			sql.append(", CURRENT_TIMESTAMP"); // created_date
+			sql.append(", CURRENT_TIMESTAMP"); // update_date
+			sql.append(");");
+
+			ps = connection.prepareStatement(sql.toString());
+
+			ps.setString(1, user.getLoginId());
+			ps.setString(2, user.getPassword());
+			ps.setString(3, user.getName());
+			ps.setInt(4, user.getBranchId());
+			ps.setInt(5, user.getPossitionId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
+	}
+
+	public User select(Connection connection, String login_id) {
+		PreparedStatement ps = null;
+		try {
+			String sql ="SELECT * FROM users WHERE login_id=?";
+
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, login_id);
+
+			ResultSet rs =ps.executeQuery();
+			List<User> ret =toUserList(rs);
+
+			if(ret.size() == 0) {
+				return null;
+			}else {
+				return ret.get(0);
+			}
+
+
+		}catch(SQLException e){
+			throw new SQLRuntimeException(e);
+		}finally{
+			close(ps);
+
 		}
 	}
 
