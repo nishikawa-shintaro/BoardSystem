@@ -3,6 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ユーザー新規登録画面</title>
 <link href="css/style.css" rel="stylesheet" type="text/css">
@@ -45,28 +46,16 @@
 
 	<label for="branch_id">支店名</label><br>
 	<select name="branch_id">
-		<option value="0">選択してください</option>
 			<c:forEach items="${branches}" var="branch">
-			<c:if test="${newUser.branch_id == branch.id }">
-					<option selected value="${branch.id}">${branch.name } </option>
-				</c:if>
-				<c:if test="${newUser.branch_id != branch.id }">
-					<option  value="${branch.id}">${branch.name } </option>
-				</c:if>
+				<option selected value="${branch.id}">${branch.name } </option>
 		</c:forEach>
 	</select>
 
-	<br><label for="department">部署・役職</label><br>
-	<select name="department">
-		<option value="0">選択してください</option>
-			<c:forEach items="${departments }" var="department">
-				<c:if test="${newUser.department_id == department.id }" >
-				<option selected value="${department.id}"> ${department.name } </option>
-				</c:if>
-				<c:if test="${newUser.department_id != department.id }" >
-				<option value ="${department.id }">${department.name }</option>
-			</c:if>
-			</c:forEach>
+	<br><label for="possition_id">部署・役職</label><br>
+	<select name="possition_id">
+		<c:forEach items="${possitions}" var="possition">
+			<option selected value="${position.id}"> ${possition.name } </option>
+		</c:forEach>
 	</select>
 
 	<br /><br /><input type="submit" value="登録" />

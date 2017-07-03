@@ -15,7 +15,7 @@ CREATE TABLE branches(
   , name	VARCHAR(20)		UNIQUE NOT NULL
 );
 
-CREATE TABLE possitions(
+CREATE TABLE positions(
 	id		INT				AUTO_INCREMENT PRIMARY KEY
   , name	VARCHAR(20)		UNIQUE NOT NULL
 );

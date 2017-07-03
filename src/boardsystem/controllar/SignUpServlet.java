@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.mysql.jdbc.StringUtils;
+import org.apache.commons.lang.StringUtils;
 
 import boardsystem.beans.Branch;
 import boardsystem.beans.Possition;
@@ -33,7 +33,6 @@ public class SignUpServlet extends HttpServlet{
 
 		List<Possition> possitions = new PossitionService().getPossition();
 		request.setAttribute("possitions", possitions);
-
 		request.getRequestDispatcher("signup.jsp").forward(request, response);
 	}
 
@@ -57,14 +56,14 @@ public class SignUpServlet extends HttpServlet{
 
 			new UserService().register(user);
 
-			response.sendRedirect("./manage");
+			response.sendRedirect("./usercontrol");
 		}else{
 
 			List<Branch> branches = new BranchService().getBranch();
 			request.setAttribute("branches", branches);
 
 			List<Possition> possitions = new PossitionService().getPossition();
-			request.setAttribute("departments", possitions);
+			request.setAttribute("possitions", possitions);
 
 			User newUser = getNewUser(request);
 			request.setAttribute("newUser", newUser);
@@ -86,7 +85,6 @@ public class SignUpServlet extends HttpServlet{
 
 		return newUser;
 	}
-
 
 	private boolean isValid(HttpServletRequest request, List<String> messages, User differentUser){
 		String name = request.getParameter("name");
@@ -131,5 +129,5 @@ public class SignUpServlet extends HttpServlet{
 			return false;
 		}
 	}
-	
+
 }
