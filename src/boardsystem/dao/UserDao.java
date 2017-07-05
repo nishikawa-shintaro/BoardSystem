@@ -16,13 +16,13 @@ import boardsystem.exception.SQLRuntimeException;
 public class UserDao {
 
 	//入力されたデータが一致しているか判定する
-	public User getLoginUser(Connection connection, String login_id, String password) {
+	public User getLoginUser(Connection connection, String loginId, String password) {
 		PreparedStatement ps =null;
 		try {
 			String sql = "SELECT * FROM users WHERE login_id = ? AND password = ? AND is_stopped =0";
 
 			ps =connection.prepareStatement(sql);
-			ps.setString(1, login_id);
+			ps.setString(1, loginId);
 			ps.setString(2, password);
 
 			ResultSet rs = ps.executeQuery();

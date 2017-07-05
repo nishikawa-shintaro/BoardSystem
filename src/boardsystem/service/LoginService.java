@@ -11,7 +11,7 @@ import boardsystem.utils.CipherUtil;
 
 public class LoginService {
 
-	public User login(String login_id, String password) {
+	public User login(String loginId, String password) {
 
 		Connection connection = null;
 		try {
@@ -21,7 +21,7 @@ public class LoginService {
 			//パスワードの暗号化
 			String encPassword = CipherUtil.encrypt(password);
 			//ユーザー情報の取得
-			User user = userDao.getLoginUser(connection, login_id, encPassword);
+			User user = userDao.getLoginUser(connection, loginId, encPassword);
 
 			commit(connection);
 			return user;
