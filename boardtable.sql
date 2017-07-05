@@ -15,11 +15,6 @@ CREATE TABLE branches(
   , name	VARCHAR(20)		UNIQUE NOT NULL
 );
 
-CREATE TABLE possitions(
-	id		INT				AUTO_INCREMENT PRIMARY KEY
-  , name	VARCHAR(20)		UNIQUE NOT NULL
-);
-
 CREATE TABLE posts(
 	id				INT			AUTO_INCREMENT PRIMARY KEY
   , title			VARCHAR(50)	NOT NULL
@@ -41,4 +36,9 @@ CREATE TABLE messages(
   , possition_id	INT			NOT NULL
   , insert_date		TIMESTAMP	NOT NULL
   , update_date		TIMESTAMP	NOT NULL
+);
+ 
+CREATE TABLE possitions(
+	id		INT				AUTO_INCREMENT PRIMARY KEY
+  , name	VARCHAR(20)		UNIQUE NOT NULL
 );

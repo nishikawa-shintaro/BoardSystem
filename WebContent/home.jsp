@@ -12,7 +12,7 @@
 
 <div class="header">
 	<a href="./">ホーム</a>
-	<a href="postmessage">新規投稿</a>
+	<a href="newpost">新規投稿</a>
 	<a href="usercontrol">ユーザー管理</a>
 	<a href="logout">ログアウト</a>
 </div>

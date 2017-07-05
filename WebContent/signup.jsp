@@ -33,7 +33,7 @@
 <h1>ユーザー新規登録</h1>
 <form action="signup" method="post">
 	<label for="loginId">ログインID(半角英数字：6文字以上20文字以下)</label><br>
-	<input name="login_id" id="login_id" value="${newUser.login_id }"/><br />
+	<input name="loginId" id="loginId" value="${newUser.loginId }"/><br />
 
 	<label for="password">パスワード(半角文字：6文字以上20文字以下)</label><br>
 	<input name="password" type="password" id="password"/><br/>
@@ -47,14 +47,16 @@
 	<label for="branch_id">支店名</label><br>
 	<select name="branch_id">
 			<c:forEach items="${branches}" var="branch">
-				<option selected value="${branch.id}">${branch.name } </option>
+					<option value="${branch.id}" <c:if test="${ branch.id == user.branchId }">selected</c:if> >
+						<c:out value="${branch.name}"/>
 		</c:forEach>
 	</select>
 
 	<br><label for="possition_id">部署・役職</label><br>
 	<select name="possition_id">
 		<c:forEach items="${possitions}" var="possition">
-			<option selected value="${position.id}"> ${possition.name } </option>
+			<option value="${possition.id}" <c:if test="${ possition.id == user.possitionId }">selected </c:if> >
+				<c:out value="${possition.name }"/>
 		</c:forEach>
 	</select>
 

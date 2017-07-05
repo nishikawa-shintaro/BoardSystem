@@ -19,7 +19,7 @@ public class UserDao {
 	public User getLoginUser(Connection connection, String login_id, String password) {
 		PreparedStatement ps =null;
 		try {
-			String sql = "SELECT * FROM users WHERE login_id = ? AND password = ? AND is_deleted =0";
+			String sql = "SELECT * FROM users WHERE login_id = ? AND password = ? AND is_stopped =0";
 
 			ps =connection.prepareStatement(sql);
 			ps.setString(1, login_id);
@@ -89,6 +89,7 @@ public class UserDao {
 			sql.append(", name");
 			sql.append(", branch_id");
 			sql.append(", possition_id");
+			sql.append(", is_stopped");
 			sql.append(", insert_date");
 			sql.append(", update_date");
 			sql.append(") VALUES (");
@@ -97,6 +98,7 @@ public class UserDao {
 			sql.append(", ?"); // name
 			sql.append(", ?"); // branch_id
 			sql.append(", ?"); // possition_id
+			sql.append(", ?"); //is_stopped
 			sql.append(", CURRENT_TIMESTAMP"); // created_date
 			sql.append(", CURRENT_TIMESTAMP"); // update_date
 			sql.append(");");
@@ -108,7 +110,9 @@ public class UserDao {
 			ps.setString(3, user.getName());
 			ps.setInt(4, user.getBranchId());
 			ps.setInt(5, user.getPossitionId());
+			ps.setInt(6, user.getIsStopped());
 			ps.executeUpdate();
+
 		} catch (SQLException e) {
 			throw new SQLRuntimeException(e);
 		} finally {
