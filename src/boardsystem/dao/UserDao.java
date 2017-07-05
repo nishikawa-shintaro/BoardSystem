@@ -19,7 +19,7 @@ public class UserDao {
 	public User getLoginUser(Connection connection, String loginId, String password) {
 		PreparedStatement ps =null;
 		try {
-			String sql = "SELECT * FROM users WHERE login_id = ? AND password = ? AND is_stopped =0";
+			String sql = "SELECT * FROM users WHERE login_id = ? AND password = ?";
 
 			ps =connection.prepareStatement(sql);
 			ps.setString(1, loginId);

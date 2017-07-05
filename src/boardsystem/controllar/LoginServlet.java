@@ -29,12 +29,13 @@ public class LoginServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws IOException,ServletException {
 
+		//id,passwordの値を受け取る
 		String loginId = request.getParameter("loginId");
 		String password = request.getParameter("password");
 
 		HttpSession session = request.getSession();
 
-
+		//LoginServiceクラスに値を送る
 		LoginService loginService = new LoginService();
 		User user = loginService.login(loginId,password);
 

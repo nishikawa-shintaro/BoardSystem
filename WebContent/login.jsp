@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page isELIgnored="false"%>
@@ -28,8 +27,8 @@
 
 <form action="login" method="post">
 	<div>
-		<label for="login_id">ログインID</label><br>
-		<input name="login_id" id="login_id"value="${loginId}"/><br>
+		<label for="loginId">ログインID</label><br>
+		<input name="loginId" id="loginId"value="${loginId}"/><br>
 	</div>
 	<div>
 		<label for="password">パスワード</label><br>
