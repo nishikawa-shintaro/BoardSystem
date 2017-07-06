@@ -39,17 +39,16 @@
 			<div class="insertdate">
 				投稿日時:<fmt:formatDate value="${post.insertdate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
 		</div>
-		</c:forEach>
 
-	<!-- コメント投稿 -->
-	<form action="newComment" method="post">
-			<label for="comentText">コメント</label>
-			<input name="comentText" id="comentText" />
+		<!-- コメント投稿 -->
+		<form action="newComment" method="post">
+			<label for="commentText">コメント</label>
+			<input name="commentText" id="commentText"value="${commentText}" />
 			<input type="hidden" name="postId" id="postId" value="${post.id}" />
-		<input type="submit" value="コメントする" />
-	</form>
+			<input type="submit" value="コメントする" />
+		</form>
+	</c:forEach>
 </div>
-
 <div class="copyright">Copyright(c)Shintaro Nishikawa</div>
 
 </body>
