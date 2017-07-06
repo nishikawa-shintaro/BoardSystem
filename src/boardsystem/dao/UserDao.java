@@ -146,4 +146,24 @@ public class UserDao {
 		}
 	}
 
+	//全ユーザーを取得する
+	public static List<User> getUserAll(Connection connection) {
+
+		PreparedStatement ps = null;
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT * FROM users");
+
+			ps = connection.prepareStatement(sql.toString());
+			ResultSet rs = ps.executeQuery();
+			List<User> ret = toUserList(rs);
+
+			return ret;
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
+	}
 }
+
