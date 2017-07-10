@@ -37,7 +37,8 @@
 				投稿者 : <c:out value="${user.name}" /> <br /></c:if>
 		</c:forEach>
 			<div class="insertdate">
-				投稿日時:<fmt:formatDate value="${post.insertdate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
+				投稿日時:<fmt:formatDate value="${post.insertdate}" pattern="yyyy/MM/dd HH:mm:ss" />
+			</div>
 		</div>
 
 		<!-- コメント投稿 -->
@@ -47,7 +48,24 @@
 			<input type="hidden" name="postId" id="postId" value="${post.id}" />
 			<input type="submit" value="コメントする" />
 		</form>
+
+		<!-- コメントを表示する -->
+
+		<c:forEach items="${commentList }" var="comment">
+			<c:if test="${ post.id == comment.postId }">
+				<c:forEach items="${userList}" var="user">
+					<c:if test="${ user.id == comment.userId }">
+							投稿者 : <c:out value="${user.name}" /> <br />
+					</c:if>
+				</c:forEach>
+			<div class="text">本文<c:out value="${comment.text }"></c:out></div>
+			<div class="date">
+				投稿日時 : <fmt:formatDate value="${comment.insertdate}" pattern="yyyy/MM/dd HH:mm:ss" /> <br />
+			</div>
+			</c:if>
+		</c:forEach>
 	</c:forEach>
+
 </div>
 <div class="copyright">Copyright(c)Shintaro Nishikawa</div>
 

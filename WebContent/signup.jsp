@@ -10,13 +10,14 @@
 </head>
 <body>
 
-<div class="main-contents">
 <div class="header">
 	<a href="./">ホーム</a>
 	<a href="usercontrol">戻る</a>
 	<a href="logout">ログアウト</a>
 	<br />
 </div>
+
+<div class="main-contents">
 
 <c:if test="${ not empty errorMessages }">
 	<div class="errorMessages">

@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import boardsystem.beans.Comment;
 import boardsystem.beans.Post;
 import boardsystem.beans.User;
+import boardsystem.service.CommentService;
 import boardsystem.service.PostService;
 import boardsystem.service.UserService;
 
@@ -21,8 +23,7 @@ public class HomeServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		//ログインユーザーの情報を取得
-		User user = (User) request.getSession().getAttribute("loginUser");
+
 
 		//全ユーザーのリストを取得
 		List<User> userList = new UserService().getUserAll();
@@ -30,8 +31,12 @@ public class HomeServlet extends HttpServlet {
 		//新規投稿メッセージ情報を取得
 		List<Post> posts = new PostService().getPost();
 
+		//コメント投稿情報を取得
+		List<Comment> commentList = new CommentService().getCommentAll();
+
 		request.setAttribute("posts", posts);
-		request.setAttribute("user",userList);
+		request.setAttribute("userList", userList);
+		request.setAttribute("commentList", commentList);
 		request.getRequestDispatcher("/home.jsp").forward(request, response);
 	}
 }

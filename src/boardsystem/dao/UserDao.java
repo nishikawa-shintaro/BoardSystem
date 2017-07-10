@@ -10,6 +10,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import boardsystem.beans.User;
 import boardsystem.exception.SQLRuntimeException;
 
@@ -120,32 +122,6 @@ public class UserDao {
 		}
 	}
 
-	public User select(Connection connection, String login_id) {
-		PreparedStatement ps = null;
-		try {
-			String sql ="SELECT * FROM users WHERE login_id=?";
-
-			ps = connection.prepareStatement(sql);
-			ps.setString(1, login_id);
-
-			ResultSet rs =ps.executeQuery();
-			List<User> ret =toUserList(rs);
-
-			if(ret.size() == 0) {
-				return null;
-			}else {
-				return ret.get(0);
-			}
-
-
-		}catch(SQLException e){
-			throw new SQLRuntimeException(e);
-		}finally{
-			close(ps);
-
-		}
-	}
-
 	//全ユーザーを取得する
 	public static List<User> getUserAll(Connection connection) {
 
@@ -164,6 +140,49 @@ public class UserDao {
 		} finally {
 			close(ps);
 		}
+	}
+
+	//ユーザーの編集情報をDBに格納する
+	public static void upDate(Connection connection,User user){
+
+		PreparedStatement ps = null;
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE users SET ");
+			sql.append("name =?");
+			sql.append(", login_id =?");
+			sql.append(", branch_id =?");
+			sql.append(", possition_id =?");
+			if(!StringUtils.isBlank(user.getPassword())) {
+				sql.append(", password =?");
+			}
+			sql.append(" WHERE");
+			sql.append(" id =?");
+
+			ps = connection.prepareStatement(sql.toString());
+
+			ps.setString(1, user.getName());
+			ps.setString(2, user.getLoginId());
+			ps.setInt(3, user.getBranchId());
+			ps.setInt(4, user.getPossitionId());
+
+			if(!StringUtils.isBlank(user.getPassword())) {
+				ps.setString(5, user.getPassword());
+				ps.setInt(6, user.getId());
+			}else {
+				ps.setInt(5, user.getId());
+			}
+		}catch(SQLException e){
+			throw new SQLRuntimeException(e);
+		}finally{
+			close(ps);
+
+		}
+	}
+
+	public List<User> getUserEdit(Connection connection, String userId) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
 	}
 }
 
