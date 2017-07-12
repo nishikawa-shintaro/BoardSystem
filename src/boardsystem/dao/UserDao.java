@@ -10,9 +10,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-
 import boardsystem.beans.User;
+import boardsystem.exception.NoRowsUpdatedRuntimeException;
 import boardsystem.exception.SQLRuntimeException;
 
 public class UserDao {
@@ -143,46 +142,107 @@ public class UserDao {
 	}
 
 	//ユーザーの編集情報をDBに格納する
-	public static void upDate(Connection connection,User user){
+	public void update(Connection connection, User user) {
 
 		PreparedStatement ps = null;
 		try {
 			StringBuilder sql = new StringBuilder();
-			sql.append("UPDATE users SET ");
-			sql.append("name =?");
-			sql.append(", login_id =?");
-			sql.append(", branch_id =?");
-			sql.append(", possition_id =?");
-			if(!StringUtils.isBlank(user.getPassword())) {
-				sql.append(", password =?");
+			sql.append("UPDATE users SET");
+			sql.append("  login_id = ?");
+			sql.append(", name = ?");
+			sql.append(", branch_id = ?");
+			sql.append(", possition_id = ?");
+			sql.append(", update_date = CURRENT_TIMESTAMP");
+			if(user.getPassword() != null){
+				sql.append(", password = ?");
 			}
 			sql.append(" WHERE");
-			sql.append(" id =?");
+			sql.append(" id = ?");
 
 			ps = connection.prepareStatement(sql.toString());
 
-			ps.setString(1, user.getName());
-			ps.setString(2, user.getLoginId());
+			ps.setString(1, user.getLoginId());
+			ps.setString(2, user.getName());
 			ps.setInt(3, user.getBranchId());
 			ps.setInt(4, user.getPossitionId());
 
-			if(!StringUtils.isBlank(user.getPassword())) {
-				ps.setString(5, user.getPassword());
-				ps.setInt(6, user.getId());
-			}else {
+			if(user.getPassword() == null){
 				ps.setInt(5, user.getId());
 			}
-		}catch(SQLException e){
-			throw new SQLRuntimeException(e);
-		}finally{
-			close(ps);
+			else{
+				ps.setString(5, user.getPassword());
+				ps.setInt(6, user.getId());
+			}
 
+
+			int count = ps.executeUpdate();
+			if (count == 0) {
+				throw new NoRowsUpdatedRuntimeException();
+			}
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
+
+	}
+	//ユーザー編集用
+	public User getUserEdit(Connection connection, int userId) {
+
+		PreparedStatement ps = null;
+		try {
+			String sql = "SELECT * FROM users WHERE id = ?";
+
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, userId);
+
+			ResultSet rs = ps.executeQuery();
+			List<User> userList = toUserList(rs);
+			if (userList.isEmpty() == true) {
+				return null;
+			} else if (2 <= userList.size()) {
+				throw new IllegalStateException("2 <= userList.size()");
+			} else {
+				return userList.get(0);
+			}
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
 		}
 	}
 
-	public List<User> getUserEdit(Connection connection, String userId) {
+	//アカウント停止用
+	public void getStopId(Connection connection, int id, int is_stopped) {
+
+		PreparedStatement ps = null;
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE users SET is_stopped = ? WHERE id = ?");
+
+
+			ps = connection.prepareStatement(sql.toString());
+
+			ps.setInt(1, is_stopped);
+			ps.setInt(2, id);
+
+
+			System.out.println(ps.toString());
+
+			int count = ps.executeUpdate();
+			if (count == 0) {
+				throw new NoRowsUpdatedRuntimeException();
+			}
+		} catch (SQLException e) {
+			throw new SQLRuntimeException(e);
+		} finally {
+			close(ps);
+		}
+	}
+
+	public void deleteUser(Connection connection, int id) {
 		// TODO 自動生成されたメソッド・スタブ
-		return null;
+
 	}
 }
 

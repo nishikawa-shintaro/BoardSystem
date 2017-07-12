@@ -33,9 +33,14 @@
 	<c:remove var="errorMessages" scope="session"/>
 </c:if>
 
+<!-- ユーザー編集画面の表示 -->
+
 <form action="useredit" method="post" >
+	<label for="editName">${editUser.name}さんの編集</label><br />
+	<input type="hidden" name="id" id="id" value="${editUser.id}" /><br />
+
 	<label for="loginId">ログインID(半角英数字：6文字以上20文字以下)</label><br>
-	<input name="loginId" id="loginId" value="${user.loginId }"/><br />
+	<input name="loginId" id="loginId" value="${editUser.loginId }"/><br />
 
 	<label for="password">パスワード(半角文字：6文字以上20文字以下)</label><br>
 	<input name="password" type="password" id="password"/><br/>
@@ -44,25 +49,26 @@
 	<input name="checkPassword" type="password" id="checkPassword"/><br />
 
 	<label for="name">名前(10文字以下)</label><br>
-	<input name="name" id="name" value="${user.name }"/><br />
+	<input name="name" id="name" value="${editUser.name }"/><br />
 
-	<label for="branch_id">支店名</label><br>
-	<select name="branch_id">
+	<label for="branchId">支店名</label><br>
+	<select name="branchId">
 			<c:forEach items="${branches}" var="branch">
-					<option value="${branch.id}" <c:if test="${ branch.id == user.branchId }">selected</c:if> >
+					<option value="${branch.id}" <c:if test="${ branch.id == editUser.branchId }">selected</c:if> >
 						<c:out value="${branch.name}"/>
 		</c:forEach>
 	</select>
 
-		<br><label for="possition_id">部署・役職</label><br>
-	<select name="possition_id">
+		<br><label for="possitionId">部署・役職</label><br>
+	<select name="possitionId">
 		<c:forEach items="${possitions}" var="possition">
-			<option value="${possition.id}" <c:if test="${ possition.id == user.possitionId }">selected </c:if> >
+			<option value="${possition.id}" <c:if test="${ possition.id == editUser.possitionId }">selected </c:if> >
 				<c:out value="${possition.name }"/>
 		</c:forEach>
 	</select>
 
-	<br /><br /><input type="submit" value="変更する" />
+
+	<br /><br /><input type="submit" name="userId"  value="変更する" />
 
 </form>
 </div>

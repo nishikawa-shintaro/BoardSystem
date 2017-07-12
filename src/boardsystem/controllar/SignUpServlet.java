@@ -30,6 +30,7 @@ public class SignUpServlet extends HttpServlet{
 
 		List<Possition> possitions = new PossitionService().getPossition();
 		request.setAttribute("possitions", possitions);
+
 		request.getRequestDispatcher("signup.jsp").forward(request, response);
 	}
 
