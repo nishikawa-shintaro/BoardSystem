@@ -37,7 +37,7 @@ public class LoginServlet extends HttpServlet{
 
 		// ログイン情報のバリデーション
 		if (isValid(request, user) == true) {
-			// ログインユーザーをセッションにセット
+
 			request.getSession().setAttribute("loginUser", user);
 
 			// ホーム画面へのリダイレクト

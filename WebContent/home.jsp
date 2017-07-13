@@ -13,7 +13,6 @@
 <body>
 <h1>わったい菜 掲示板</h1>
 
-<div class="main-contents">
 
 <div class="header">
 	<c:out value="${loginUser.name}" />
@@ -23,7 +22,19 @@
 	<a href="logout">ログアウト</a>
 	<br />
 </div>
-</div>
+
+<div class="main-contents">
+<c:if test="${ not empty errorMessages }">
+	<div class="errorMessages">
+		<ul>
+			<c:forEach items="${errorMessages}" var="message">
+				<li><c:out value="${message}" />
+			</c:forEach>
+		</ul>
+	</div>
+	<c:remove var="errorMessages" scope="session"/>
+</c:if>
+
 <div class="posts">
 
 	<!--新規投稿表示-->
@@ -65,7 +76,12 @@
 			</c:if>
 		</c:forEach>
 	</c:forEach>
+	<!-- コメントの削除 -->
+	<form action="newComment" method="post">
 
+	</form>
+
+</div>
 </div>
 <div class="copyright">Copyright(c)Shintaro Nishikawa</div>
 
