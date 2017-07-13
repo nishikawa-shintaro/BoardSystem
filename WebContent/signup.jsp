@@ -46,15 +46,17 @@
 	<input name="name" id="name" value="${newUser.name }"/><br />
 
 	<label for="branchId">支店名</label><br>
-	<select name="branchId">
-			<c:forEach items="${branches}" var="branch">
-					<option value="${branch.id}" <c:if test="${ branch.id == user.branchId }">selected</c:if> >
+	<select name="branchId" id="branchId">
+	<option value=0 ><c:out value="選択してください" />
+		<c:forEach items="${branches}" var="branch">
+				<option value="${branch.id}" <c:if test="${ branch.id == user.branchId }">selected</c:if> >
 						<c:out value="${branch.name}"/>
 		</c:forEach>
-	</select>
+	</select><br/>
 
-	<br><label for="possitionId">部署・役職</label><br>
-	<select name="possitionId">
+	<label for="possitionId">部署・役職</label><br>
+	<select name="possitionId" id="possitionId">
+	<option value=0 ><c:out value="選択してください" />
 		<c:forEach items="${possitions}" var="possition">
 			<option value="${possition.id}" <c:if test="${ possition.id == user.possitionId }">selected </c:if> >
 				<c:out value="${possition.name }"/>

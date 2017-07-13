@@ -45,31 +45,30 @@ public class SignUpServlet extends HttpServlet{
 		List<String> messages = new ArrayList<String>();
 		HttpSession session = request.getSession();
 
-	if(isValid(request, messages)==true){
+			//ユーザーの登録処理を行う
+			User user = new User();
+			user.setLoginId(request.getParameter("loginId"));
 
-		//ユーザーの登録処理を行う
-		User user = new User();
-		user.setLoginId(request.getParameter("loginId"));
+			user.setPassword(request.getParameter("password"));
 
-		user.setPassword(request.getParameter("password"));
+			user.setName(request.getParameter("name"));
 
-		user.setName(request.getParameter("name"));
+			user.setBranchId(Integer.parseInt(request.getParameter("branchId")));
 
-		user.setBranchId(Integer.parseInt(request.getParameter("branchId")));
+			user.setPossitionId(Integer.parseInt(request.getParameter("possitionId")));
 
-		user.setPossitionId(Integer.parseInt(request.getParameter("possitionId")));
+			user.setIsStopped(0);
 
-		user.setIsStopped(0);
+		if(isValid(request, messages)==true){
 
-		new UserService().register(user);
-		response.sendRedirect("usercontrol");
-	}else{
-		session.setAttribute("errorMessages", messages);
-		request.getRequestDispatcher("signup.jsp").forward(request,response);
+			new UserService().register(user);
+			response.sendRedirect("usercontrol");
+
+		}else{
+			session.setAttribute("errorMessages", messages);
+			request.getRequestDispatcher("signup.jsp").forward(request,response);
+		}
 	}
-	}
-
-
 
 	private boolean isValid(HttpServletRequest request, List<String> messages) {
 		String loginId = request.getParameter("loginId");

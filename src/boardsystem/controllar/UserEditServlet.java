@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
+
 import boardsystem.beans.Branch;
 import boardsystem.beans.Possition;
 import boardsystem.beans.User;
@@ -33,11 +35,6 @@ import boardsystem.service.UserService;
 		int editUserId = Integer.parseInt(request.getParameter("editUserId"));
 		User editUser = new UserService().getUser(editUserId);
 
-
-		//System.out.println(editUser.getBranchId());
-		//System.out.println(editUser.getPossitionId());
-
-
 		//支店情報を取得
 		List<Branch> branches = new BranchService().getBranch();
 
@@ -51,6 +48,7 @@ import boardsystem.service.UserService;
 		request.setAttribute("possitions", possitions);
 
 		request.getRequestDispatcher("./useredit.jsp").forward(request, response);
+
 	}
 
 	@Override
@@ -102,9 +100,37 @@ import boardsystem.service.UserService;
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String checkPassword = request.getParameter("checkPassword");
+		int branch = Integer.parseInt(request.getParameter("branchId"));
+		int possition = Integer.parseInt(request.getParameter("possitionId"));
 
 
-		return true;
+		if(StringUtils.isBlank(loginId) == true) {
+			messages.add("ログインIDを入力してください");
+
+		}else if(loginId.matches("\\w{6,20}")!=true){
+			messages.add("ログインIDは6～20文字の半角英数字で入力してください");
+
+		}
+		if(StringUtils.isNotBlank(name)== true){
+			messages.add("名前を入力してください");
+
+		}else if(10 < name.length()){
+			messages.add("名前は10文字以内で入力してください");
+
+		}
+		if(StringUtils.isBlank(password)==true){
+			messages.add("パスワードを入力してください");
+
+		}else if(((password.matches("\\w{6,20}")) !=true) ){
+			messages.add("パスワードは6～20文字の半角英数字で入力してください");
+
+		}
+
+
+		}if(messages.size() ==0){
+			return true;
+		}else{
+			return false;
+		}
 	}
-
 }
