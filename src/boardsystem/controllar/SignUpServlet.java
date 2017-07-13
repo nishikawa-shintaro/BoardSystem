@@ -1,6 +1,7 @@
 package boardsystem.controllar;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -8,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang.StringUtils;
 
 import boardsystem.beans.Branch;
 import boardsystem.beans.Possition;
@@ -38,6 +42,11 @@ public class SignUpServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException,
 	ServletException{
 
+		List<String> messages = new ArrayList<String>();
+		HttpSession session = request.getSession();
+
+	if(isValid(request, messages)==true){
+
 		//ユーザーの登録処理を行う
 		User user = new User();
 		user.setLoginId(request.getParameter("loginId"));
@@ -46,15 +55,75 @@ public class SignUpServlet extends HttpServlet{
 
 		user.setName(request.getParameter("name"));
 
-		user.setBranchId(Integer.parseInt(request.getParameter("branch_id")));
+		user.setBranchId(Integer.parseInt(request.getParameter("branchId")));
 
-		user.setPossitionId(Integer.parseInt(request.getParameter("possition_id")));
+		user.setPossitionId(Integer.parseInt(request.getParameter("possitionId")));
 
 		user.setIsStopped(0);
 
-
-			new UserService().register(user);
-			response.sendRedirect("usercontrol");
+		new UserService().register(user);
+		response.sendRedirect("usercontrol");
+	}else{
+		session.setAttribute("errorMessages", messages);
+		request.getRequestDispatcher("signup.jsp").forward(request,response);
+	}
 	}
 
+
+
+	private boolean isValid(HttpServletRequest request, List<String> messages) {
+		String loginId = request.getParameter("loginId");
+		String name = request.getParameter("name");
+		String password = request.getParameter("password");
+		String checkPassword = request.getParameter("checkPassword");
+		int branch = Integer.parseInt(request.getParameter("branchId"));
+		int possition = Integer.parseInt(request.getParameter("possitionId"));
+
+		if(StringUtils.isBlank(loginId) == true) {
+			messages.add("ログインIDを入力してください");
+
+		}else if(loginId.matches("\\w{6,20}")!=true){
+			messages.add("ログインIDは6～20文字の半角英数字で入力してください");
+		}
+
+		if(StringUtils.isBlank(name) == true){
+			messages.add("名前を入力してください");
+
+		}else if(10 < name.length()) {
+			messages.add("名前は10字以下で入力してください");
+		}
+
+		if(StringUtils.isBlank(password)==true){
+			messages.add("パスワードを入力してください");
+
+		}else if(((password.matches("\\w{6,20}")) !=true) ){
+			messages.add("パスワードは6～20文字の半角英数字で入力してください");
+
+		}
+		if (!checkPassword.equals(password)){
+			messages.add("パスワード（確認用）が正しくありません");
+
+		}
+		if(branch==0){
+			messages.add("支店を選択してください");
+
+		}
+		if(possition==0){
+			messages.add("役職を選択してください");
+		}
+		if(branch != 1 && possition <= 2){
+			messages.add("支店と部署の組み合わせが正しくありません");
+
+		}
+		if(branch == 1 && possition > 2){
+			messages.add("支店と部署の組み合わせが正しくありません");
+
+		}
+		if(messages.size() ==0){
+			return true;
+		}else{
+
+		return false;
+		}
+	}
 }

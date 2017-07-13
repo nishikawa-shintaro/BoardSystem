@@ -45,16 +45,16 @@
 	<label for="name">名前(10文字以下)</label><br>
 	<input name="name" id="name" value="${newUser.name }"/><br />
 
-	<label for="branch_id">支店名</label><br>
-	<select name="branch_id">
+	<label for="branchId">支店名</label><br>
+	<select name="branchId">
 			<c:forEach items="${branches}" var="branch">
 					<option value="${branch.id}" <c:if test="${ branch.id == user.branchId }">selected</c:if> >
 						<c:out value="${branch.name}"/>
 		</c:forEach>
 	</select>
 
-	<br><label for="possition_id">部署・役職</label><br>
-	<select name="possition_id">
+	<br><label for="possitionId">部署・役職</label><br>
+	<select name="possitionId">
 		<c:forEach items="${possitions}" var="possition">
 			<option value="${possition.id}" <c:if test="${ possition.id == user.possitionId }">selected </c:if> >
 				<c:out value="${possition.name }"/>
