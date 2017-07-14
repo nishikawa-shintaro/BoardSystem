@@ -58,8 +58,13 @@ import boardsystem.service.UserService;
 		List<String> messages = new ArrayList<String>();
 		HttpSession session = request.getSession();
 
+		//支店･役職情報を取得
+		List<Branch> branches = new ArrayList<Branch>();
+		List<Possition> possitions = new ArrayList<Possition>();
+
 
 		User user = new User();
+
 		user.setId(Integer.parseInt(request.getParameter("id")));
 		//System.out.println(Integer.parseInt(request.getParameter("id")));
 		user.setLoginId(request.getParameter("loginId"));
@@ -78,16 +83,20 @@ import boardsystem.service.UserService;
 
 				UserService userService = new UserService();
 				userService.update(user);
-				System.out.println(user);
+				//System.out.println(user);
+
 			} catch (NoRowsUpdatedRuntimeException e) {
 				messages.add("他の人によって更新されています。最新のデータを表示しました。データを確認してください。");
 				session.setAttribute("errorMessages", messages);
-
 				request.getRequestDispatcher("/useredit.jsp");
 			}
 			response.sendRedirect("usercontrol");
 
 		}else{
+
+			request.setAttribute("editUser", user);
+			request.setAttribute("branches", branches);
+			request.setAttribute("possitions", possitions);
 			session.setAttribute("errorMessages", messages);
 			request.getRequestDispatcher("/useredit.jsp").forward(request, response);
 		}
@@ -96,12 +105,18 @@ import boardsystem.service.UserService;
 	private boolean isValid(HttpServletRequest request, List<String> messages) {
 		//バリデーションチェック用の値を取得
 		int id = Integer.parseInt(request.getParameter("id"));
+		System.out.println(Integer.parseInt(request.getParameter("id")));
 		String loginId = request.getParameter("loginId");
+
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String checkPassword = request.getParameter("checkPassword");
 		int branch = Integer.parseInt(request.getParameter("branchId"));
+		System.out.println((request.getParameter("branchId")));
 		int possition = Integer.parseInt(request.getParameter("possitionId"));
+		//System.out.println(possition);
+
+		User checkUser = new UserService().checkUser(loginId);
 
 
 		if(StringUtils.isBlank(loginId) == true) {
@@ -110,8 +125,11 @@ import boardsystem.service.UserService;
 		}else if(loginId.matches("\\w{6,20}")!=true){
 			messages.add("ログインIDは6～20文字の半角英数字で入力してください");
 
+		}else if (checkUser != null){
+		messages.add("指定されたログインIDは既に使用されています");
+
 		}
-		if(StringUtils.isNotBlank(name)== true){
+		if(StringUtils.isBlank(name)== true){
 			messages.add("名前を入力してください");
 
 		}else if(10 < name.length()){
@@ -125,9 +143,29 @@ import boardsystem.service.UserService;
 			messages.add("パスワードは6～20文字の半角英数字で入力してください");
 
 		}
+		if (!checkPassword.equals(password)){
+			messages.add("パスワード（確認用）が正しくありません");
+
+		}
+		if(branch==0){
+			messages.add("支店を選択してください");
+			System.out.println(branch);
+
+		}
+		if(possition==0){
+			messages.add("役職を選択してください");
+
+		}
+		if(branch != 1 && possition <= 2){
+			messages.add("支店と部署の組み合わせが正しくありません");
+
+		}
+		if(branch == 1 && possition > 2){
+			messages.add("支店と部署の組み合わせが正しくありません");
 
 
 		}if(messages.size() ==0){
+
 			return true;
 		}else{
 			return false;

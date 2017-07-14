@@ -44,6 +44,10 @@ public class SignUpServlet extends HttpServlet{
 
 		List<String> messages = new ArrayList<String>();
 		HttpSession session = request.getSession();
+		//支店･役職情報の取得
+		List<Branch> branches = new BranchService().getBranch();
+		List<Possition> possitions = new PossitionService().getPossition();
+
 
 			//ユーザーの登録処理を行う
 			User user = new User();
@@ -65,6 +69,9 @@ public class SignUpServlet extends HttpServlet{
 			response.sendRedirect("usercontrol");
 
 		}else{
+
+			request.setAttribute("possitions", possitions);
+			request.setAttribute("branches", branches);
 			session.setAttribute("errorMessages", messages);
 			request.getRequestDispatcher("signup.jsp").forward(request,response);
 		}
@@ -78,13 +85,18 @@ public class SignUpServlet extends HttpServlet{
 		int branch = Integer.parseInt(request.getParameter("branchId"));
 		int possition = Integer.parseInt(request.getParameter("possitionId"));
 
+		User checkUser = new UserService().checkUser(loginId);
+
 		if(StringUtils.isBlank(loginId) == true) {
 			messages.add("ログインIDを入力してください");
 
 		}else if(loginId.matches("\\w{6,20}")!=true){
 			messages.add("ログインIDは6～20文字の半角英数字で入力してください");
-		}
 
+		}else if (checkUser != null){
+			messages.add("指定されたログインIDは既に使用されています");
+
+		}
 		if(StringUtils.isBlank(name) == true){
 			messages.add("名前を入力してください");
 

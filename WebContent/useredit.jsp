@@ -33,6 +33,8 @@
 	<c:remove var="errorMessages" scope="session"/>
 </c:if>
 
+
+
 <!-- ユーザー編集画面の表示 -->
 
 <form action="useredit" method="post" >
@@ -56,6 +58,7 @@
 			<c:forEach items="${branches}" var="branch">
 					<option value="${branch.id}" <c:if test="${ branch.id == editUser.branchId }">selected</c:if> >
 						<c:out value="${branch.name}"/>
+					</option>
 		</c:forEach>
 	</select>
 
@@ -64,6 +67,7 @@
 		<c:forEach items="${possitions}" var="possition">
 			<option value="${possition.id}" <c:if test="${ possition.id == editUser.possitionId }">selected </c:if> >
 				<c:out value="${possition.name }"/>
+			</option>
 		</c:forEach>
 	</select>
 

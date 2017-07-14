@@ -24,7 +24,6 @@ public class HomeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-
 		//全ユーザーのリストを取得
 		List<User> userList = new UserService().getUserAll();
 
@@ -34,6 +33,11 @@ public class HomeServlet extends HttpServlet {
 		//コメント投稿情報を取得
 		List<Comment> commentList = new CommentService().getCommentAll();
 
+		//カテゴリーリストを取得する
+		List<String> categories = new PostService().getCategoryAll();
+
+
+		request.setAttribute("categories", categories);
 		request.setAttribute("posts", posts);
 		request.setAttribute("userList", userList);
 		request.setAttribute("commentList", commentList);
