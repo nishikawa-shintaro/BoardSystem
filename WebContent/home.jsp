@@ -1,23 +1,15 @@
-<%@page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@page isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html >
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ホーム</title>
-<link href="./css/style.css" rel="stylesheet" type="text/css">
+<link href="css/login.css" rel="stylesheet" type="text/css">
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-<link rel="stylesheet"
-	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/blitzer/jquery-ui.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js"></script>
 </head>
 
 <h1>わったい菜 掲示板</h1>
@@ -43,40 +35,28 @@
 	</c:if>
 
 	<!-- 絞込み検索の実装 -->
-	<script>
-		$(function() {
-			$('#startDate').datepicker({
-				maxDate : "0y"
-			});
-			$('#firstCalendar').change(
-					function() {
-						$('#lastCalendar').datepicker("option", "minDate",
-								$('#firstCalendar').val())
-					})
-			$('#lastCalendar').datepicker({
-				maxDate : "0y"
-			});
-		});
-	</script>
 
-	<div class="search">
-		<label for="searchCategory">カテゴリー</label> <select name="seachCategory"
-			id="seachCategory">
-			<option value="">カテゴリーを選択して下さい</option>
-			<c:forEach items="${categories}" var="category">
-				<option value="${category}"><c:out value="${category}" /></option>
+	<form action="index.jsp" method="get">
+		<div class="search">
+			<label for="searchCategory">カテゴリー</label> <select
+				name="seachCategory" id="seachCategory">
+				<option value="">カテゴリーを選択して下さい</option>
+				<c:forEach items="${categories}" var="category">
+					<option value="${category}"><c:out value="${category}" /></option>
+				</c:forEach>
+			</select>
+		</div>
 
-			</c:forEach>
-		</select>
-	</div>
+		<div class="seachDate">
+			<input type="date" name="startdate" value="${startdate}">
+			<input type="date" name="enddate" value="${enddate }">
+			<input type="submit" value="検索">
 
-	<div class="startDate">
-		<div class="start">
-			<label for="StartDate">開始日</label> <input
-				name="narrowFirstDate" id="firstCalendar" type="text" readonly>
-	</div>
-	</div>
-			<div class="main-contents">
+		</div>
+	</form>
+
+
+	<div class="main-contents">
 
 
 				<div class="posts">

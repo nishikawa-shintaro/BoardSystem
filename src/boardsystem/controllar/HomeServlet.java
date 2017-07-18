@@ -1,6 +1,8 @@
 package boardsystem.controllar;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import boardsystem.beans.Comment;
 import boardsystem.beans.Post;
 import boardsystem.beans.User;
+import boardsystem.beans.UserPost;
 import boardsystem.service.CommentService;
 import boardsystem.service.PostService;
 import boardsystem.service.UserService;
@@ -36,8 +39,29 @@ public class HomeServlet extends HttpServlet {
 		//カテゴリーリストを取得する
 		List<String> categories = new PostService().getCategoryAll();
 
+		//絞込み時間の指定の取得
+		String startdate= request.getParameter("startdate");
+		String enddate= request.getParameter("enddate");
+		String category = request.getParameter("category");
 
-		request.setAttribute("categories", categories);
+
+		//初期値の指定
+		if(startdate==null){
+			startdate = "2017-07-01";
+		}
+
+		if(enddate==null){
+			Date date= new Date();
+			enddate = new SimpleDateFormat("yyyy-MM-dd").format(date);
+
+		}
+
+		List<UserPost> userposts = new PostService().getPosts(startdate, enddate, category);
+
+		request.setAttribute("userposts", userposts);
+
+
+		request.setAttribute("categories",categories);
 		request.setAttribute("posts", posts);
 		request.setAttribute("userList", userList);
 		request.setAttribute("commentList", commentList);
