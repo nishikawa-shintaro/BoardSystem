@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import boardsystem.beans.Post;
-import boardsystem.beans.UserPost;
 import boardsystem.exception.SQLRuntimeException;
 
 public class NewPostDao {
@@ -156,66 +155,5 @@ public class NewPostDao {
 			close(ps);
 		}
 	}
-	//絞込み条件による一致したものを取得する
-	public static List<UserPost> getUserPost(Connection connection, String startdate, String enddate, String category) {
-		PreparedStatement ps = null;
-		try{
-			//条件に当てはまるものを取得する
-			String sql=("SELECT * FROM posts,  WHERE insert_date BETWEEN ? AND ? ORDER BY id DESC");
-			//カテゴリーがnullでなければ条件を追加
-			if (category != null) {
-				sql+="and  category = ? ";
-			}
 
-			ps = connection.prepareStatement(sql.toString());
-			ps.setString(1,startdate);
-			ps.setString(2,enddate);
-
-			if (!(category == null )) {
-				ps.setString(3,category);
-			}
-
-			ResultSet rs = ps.executeQuery();
-
-			List<UserPost> userPost = toPost(rs);
-			return userPost;
-		} catch(SQLException e) {
-			throw new SQLRuntimeException(e);
-		}finally {
-			close(ps);
-		}
-	}
-		private static List<UserPost> toPost(ResultSet rs) throws SQLException {
-
-			List<UserPost> ret = new ArrayList<UserPost>();
-			try{
-				while(rs.next()){
-					int id = rs.getInt("id");
-					int userId = rs.getInt("user_id");
-					String title = rs.getString("title");
-					String text = rs.getString("text");
-					String category = rs.getString("category");
-					Timestamp insertdate = rs.getTimestamp("insert_date");
-					String name = rs.getString("name");
-					int branchId = rs.getInt("branch_id");
-					int possitionId = rs.getInt("possition_id");
-
-					UserPost userPost = new UserPost();
-					userPost.setId(id);
-					userPost.setUserId(userId);
-					userPost.setTitle(title);
-					userPost.setText(text);
-					userPost.setCategory(category);
-					userPost.setInsertdate(insertdate);
-					userPost.setName(name);
-					userPost.setBranchId(branchId);
-					userPost.setPossitionId(possitionId);
-
-					ret.add(userPost);
-				}
-				return ret;
-			} finally {
-				close(rs);
-			}
-		}
 }

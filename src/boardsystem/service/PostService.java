@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.util.List;
 
 import boardsystem.beans.Post;
-import boardsystem.beans.UserPost;
 import boardsystem.dao.NewPostDao;
 
 public class PostService {
@@ -90,29 +89,6 @@ public class PostService {
 			commit(connection);
 
 			return categories;
-		} catch (RuntimeException e) {
-			rollback(connection);
-			throw e;
-		} catch (Error e) {
-			rollback(connection);
-			throw e;
-		} finally {
-			close(connection);
-		}
-	}
-
-	//絞込み
-	public List<UserPost> getPosts(String startdate, String enddate, String category) {
-
-		Connection connection = null;
-		try {
-			connection = getConnection();
-
-			List<UserPost> userPost = NewPostDao.getUserPost(connection, startdate, enddate, category);
-
-			commit(connection);
-
-			return userPost;
 		} catch (RuntimeException e) {
 			rollback(connection);
 			throw e;

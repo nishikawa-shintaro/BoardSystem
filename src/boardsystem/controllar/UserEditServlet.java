@@ -135,11 +135,7 @@ import boardsystem.service.UserService;
 		}else if(10 < name.length()){
 			messages.add("名前は10文字以内で入力してください");
 
-		}
-		if(StringUtils.isBlank(password)==true){
-			messages.add("パスワードを入力してください");
-
-		}else if(((password.matches("\\w{6,20}")) !=true) ){
+		} if(((password.matches("\\w{6,20}")) !=true) ){
 			messages.add("パスワードは6～20文字の半角英数字で入力してください");
 
 		}

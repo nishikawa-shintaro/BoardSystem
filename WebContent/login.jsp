@@ -11,7 +11,7 @@
 <link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<h1>ログイン画面</h1>
+<h1 class="main"><font color="white">ログイン画面</font></h1>
 
 <div class="main-contents">
 <c:if test="${ not empty errorMessages }">
@@ -25,20 +25,24 @@
 	<c:remove var="errorMessages" scope="session"/>
 </c:if>
 
+
 <form action="login" method="post">
-	<div>
-		<label for="loginId">ログインID</label><br>
+
+	<div class="login">
+		<h2>ログイン</h2>
+		<p><label for="loginId">ログインID</label><br>
 		<input name="loginId" id="loginId"value="${loginId}"/><br>
-	</div>
-	<div>
+	<br>
 		<label for="password">パスワード</label><br>
 		<input name="password" type="password" id="password"value="${password}"/><br>
-	</div><br>
+	<br>
 	<input type="submit" value="ログイン" /><br />
+	</div>
+
 </form>
 
+</div>
 <div class="copyright">Copyright(c)Nishikawa Shintaro</div>
 
-</div>
 </body>
 </html>

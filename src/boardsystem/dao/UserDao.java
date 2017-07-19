@@ -10,6 +10,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import boardsystem.beans.User;
 import boardsystem.exception.NoRowsUpdatedRuntimeException;
 import boardsystem.exception.SQLRuntimeException;
@@ -153,7 +155,7 @@ public class UserDao {
 			sql.append(", branch_id = ?");
 			sql.append(", possition_id = ?");
 			sql.append(", update_date = CURRENT_TIMESTAMP");
-			if(user.getPassword() != null){
+			if(!StringUtils.isEmpty(user.getPassword())){
 				sql.append(", password = ?");
 			}
 			sql.append(" WHERE");
@@ -166,12 +168,12 @@ public class UserDao {
 			ps.setInt(3, user.getBranchId());
 			ps.setInt(4, user.getPossitionId());
 
-			if(user.getPassword() == null){
-				ps.setInt(5, user.getId());
-			}
-			else{
+			if(!StringUtils.isEmpty(user.getPassword())) {
 				ps.setString(5, user.getPassword());
 				ps.setInt(6, user.getId());
+			}
+			else{
+				ps.setInt(5, user.getId());
 			}
 
 

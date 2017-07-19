@@ -26,7 +26,7 @@ public class SignUpServlet extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-		throws IOException, ServletException {
+			throws IOException, ServletException {
 
 		//支店・役職情報を取得
 		List<Branch> branches = new BranchService().getBranch();
@@ -49,19 +49,19 @@ public class SignUpServlet extends HttpServlet{
 		List<Possition> possitions = new PossitionService().getPossition();
 
 
-			//ユーザーの登録処理を行う
-			User user = new User();
-			user.setLoginId(request.getParameter("loginId"));
+		//ユーザーの登録処理を行う
+		User user = new User();
+		user.setLoginId(request.getParameter("loginId"));
 
-			user.setPassword(request.getParameter("password"));
+		user.setPassword(request.getParameter("password"));
 
-			user.setName(request.getParameter("name"));
+		user.setName(request.getParameter("name"));
 
-			user.setBranchId(Integer.parseInt(request.getParameter("branchId")));
+		user.setBranchId(Integer.parseInt(request.getParameter("branchId")));
 
-			user.setPossitionId(Integer.parseInt(request.getParameter("possitionId")));
+		user.setPossitionId(Integer.parseInt(request.getParameter("possitionId")));
 
-			user.setIsStopped(0);
+		user.setIsStopped(0);
 
 		if(isValid(request, messages)==true){
 
@@ -134,7 +134,7 @@ public class SignUpServlet extends HttpServlet{
 			return true;
 		}else{
 
-		return false;
+			return false;
 		}
 	}
 }
