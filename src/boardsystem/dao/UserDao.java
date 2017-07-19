@@ -18,7 +18,7 @@ import boardsystem.exception.SQLRuntimeException;
 
 public class UserDao {
 
-	//入力されたデータが一致しているか判定する
+	//ログイン入力されたデータが一致しているか判定する
 	public User getLoginUser(Connection connection, String loginId, String password) {
 		PreparedStatement ps =null;
 		try {
@@ -155,7 +155,7 @@ public class UserDao {
 			sql.append(", branch_id = ?");
 			sql.append(", possition_id = ?");
 			sql.append(", update_date = CURRENT_TIMESTAMP");
-			if(!StringUtils.isEmpty(user.getPassword())){
+			if(!StringUtils.isBlank(user.getPassword())==true){
 				sql.append(", password = ?");
 			}
 			sql.append(" WHERE");
@@ -168,7 +168,7 @@ public class UserDao {
 			ps.setInt(3, user.getBranchId());
 			ps.setInt(4, user.getPossitionId());
 
-			if(!StringUtils.isEmpty(user.getPassword())) {
+			if(!StringUtils.isBlank(user.getPassword())==true) {
 				ps.setString(5, user.getPassword());
 				ps.setInt(6, user.getId());
 			}

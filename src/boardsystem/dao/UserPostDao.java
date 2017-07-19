@@ -36,7 +36,7 @@ public class UserPostDao {
 			}
 
 			ResultSet rs = ps.executeQuery();
-			System.out.println(ps);
+			//System.out.println(ps);
 
 			List<UserPost> userPost = toPost(rs);
 			return userPost;

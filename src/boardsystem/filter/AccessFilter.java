@@ -1,3 +1,4 @@
+
 package boardsystem.filter;
 
 import java.io.IOException;
@@ -28,7 +29,6 @@ public class AccessFilter implements Filter {
 			throws IOException, ServletException {
 
 		//対象のサーブレットパスを文字列として取得
-		String url = ((HttpServletRequest) request).getServletPath();
 		HttpSession session = ((HttpServletRequest) request).getSession();
 
 		List<String> messages = new ArrayList<String>();
@@ -37,6 +37,7 @@ public class AccessFilter implements Filter {
 		User user = (User)session.getAttribute("loginUser");
 
 		if(user== null){
+			System.out.println(user);
 			messages.add("ログインしてください");
 			session.setAttribute("errorMessages", messages);
 			((HttpServletResponse) response).sendRedirect("login");

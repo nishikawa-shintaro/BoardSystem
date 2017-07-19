@@ -34,11 +34,12 @@
 		<c:remove var="errorMessages" scope="session" />
 	</c:if>
 
+
 	<!-- 絞込み検索の実装 -->
 
 	<form action="index.jsp" method="get">
 		<div class="search">
-			<label for="searchCategory">カテゴリー</label>
+			<label for="searchCategory">絞込み検索機能</label>
 			<select name="category">
 				<option value="">カテゴリーを選択して下さい</option>
 				<c:forEach items="${categories}" var="category">
@@ -59,31 +60,25 @@
 
 <div class="main-contents">
 		<div class="posts">
-			<!--新規投稿表示-->
-			<c:forEach items="${posts}" var="post">
+			<!--投稿表示-->
+			<c:forEach items="${userposts}" var="userposts">
 				<div class="title">
 					件名:
-					<c:out value="${post.title}" />
+					<c:out value="${userposts.title}" />
 				</div>
 				<div class="text">
 					本文
-					<c:out value="${post.text}" />
+					<c:out value="${userposts.text}" />
 				</div>
 				<div class="category">
 					カテゴリー:
-					<c:out value="${post.category}" />
+					<c:out value="${userposts.category}" />
 				</div>
-				<div class="registrant">
-					<c:forEach items="${userList}" var="user">
-						<c:if test="${ user.id == post.userId }">
-					投稿者 : <c:out value="${user.name}" />
-							<br />
-						</c:if>
-					</c:forEach>
+				<div class="user">
+					投稿者 : <c:out value="${userposts.name}" />
 					<div class="insertdate">
 						投稿日時:
-						<fmt:formatDate value="${post.insertdate}"
-							pattern="yyyy/MM/dd HH:mm:ss" />
+						<c:out value="${userposts.insertdate}"/>
 					</div>
 				</div>
 

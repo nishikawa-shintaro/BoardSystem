@@ -11,6 +11,7 @@
 	<link href="./css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+
 <script type="text/javascript">
 	function Check(){
 		if(window.confirm("本当によろしいですか？")){
@@ -50,6 +51,7 @@
 <!-- DBのユーザーリストを全て表示する -->
 
 <div class="users">
+
 	<c:forEach items="${userList }" var="user">
 		<div class="name">名前:<c:out value="${user.name}"/></div>
 		<div class="loginId">ログインID:<c:out value="${user.loginId}" /></div>

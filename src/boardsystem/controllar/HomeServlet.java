@@ -44,15 +44,15 @@ public class HomeServlet extends HttpServlet {
 		//カテゴリーリストを取得する
 		List<String> categories = new PostService().getCategoryAll();
 		request.setAttribute("categories",categories);
-		System.out.println(categories);
+		//System.out.println(categories);
 
 		//絞込み時間の指定の取得
 		String startdate= request.getParameter("startdate");
-		System.out.println(request.getParameter("startdate"));
+		//System.out.println(request.getParameter("startdate"));
 		String enddate= request.getParameter("enddate");
-		System.out.println(request.getParameter("enddate"));
+		//System.out.println(request.getParameter("enddate"));
 		String category = request.getParameter("category");
-		System.out.println(request.getParameter("category"));
+		//System.out.println(request.getParameter("category"));
 
 		request.setAttribute("searchcategory",category);
 		request.setAttribute("startdate",startdate);
@@ -74,7 +74,7 @@ public class HomeServlet extends HttpServlet {
 
 		List<UserPost> userposts = new UserPostService().getPosts(startdate, enddate, category);
 		request.setAttribute("userposts", userposts);
-		System.out.println(userposts);
+		//System.out.println(userposts);
 
 		request.getRequestDispatcher("/home.jsp").forward(request, response);
 	}

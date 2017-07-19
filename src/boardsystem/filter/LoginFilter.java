@@ -38,7 +38,6 @@ public class LoginFilter implements Filter {
 			//System.out.println(user);
 		}else{
 			if(user == null){
-				//System.out.println(user);
 				messages.add("ログインしてください");
 				session.setAttribute("errorMessages", messages);
 				((HttpServletResponse) response).sendRedirect("login");
@@ -73,4 +72,3 @@ public class LoginFilter implements Filter {
 	}
 
 }
-

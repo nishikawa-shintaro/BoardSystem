@@ -65,3 +65,10 @@ input[type="submit"]{
 input[type="submit"]:hover{
     background:#ffd386;
 }
+.errorMessages {
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	color: red;
+}

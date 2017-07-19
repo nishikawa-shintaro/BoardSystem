@@ -58,10 +58,6 @@ import boardsystem.service.UserService;
 		List<String> messages = new ArrayList<String>();
 		HttpSession session = request.getSession();
 
-		//支店･役職情報を取得
-		List<Branch> branches = new ArrayList<Branch>();
-		List<Possition> possitions = new ArrayList<Possition>();
-
 
 		User user = new User();
 
@@ -75,8 +71,12 @@ import boardsystem.service.UserService;
 		//System.out.println(Integer.parseInt(request.getParameter("branchId")));
 		user.setPossitionId(Integer.parseInt(request.getParameter("possitionId")));
 		//System.out.println(Integer.parseInt(request.getParameter("possitionId")));
-		user.setPassword(request.getParameter("password"));
 
+		if(StringUtils.isBlank(request.getParameter("password")) != true){
+
+			user.setPassword(request.getParameter("password"));
+
+		}
 		//	エラーメッセージ、リダイレクト
 		if (isValid(request, messages) == true) {
 			try {
@@ -94,6 +94,12 @@ import boardsystem.service.UserService;
 
 		}else{
 
+			//支店情報を取得
+			List<Branch> branches = new BranchService().getBranch();
+
+			//役職情報を取得
+			List<Possition> possitions = new PossitionService().getPossition();
+
 			request.setAttribute("editUser", user);
 			request.setAttribute("branches", branches);
 			request.setAttribute("possitions", possitions);
@@ -105,18 +111,16 @@ import boardsystem.service.UserService;
 	private boolean isValid(HttpServletRequest request, List<String> messages) {
 		//バリデーションチェック用の値を取得
 		int id = Integer.parseInt(request.getParameter("id"));
-		System.out.println(Integer.parseInt(request.getParameter("id")));
 		String loginId = request.getParameter("loginId");
-
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String checkPassword = request.getParameter("checkPassword");
 		int branch = Integer.parseInt(request.getParameter("branchId"));
-		System.out.println((request.getParameter("branchId")));
 		int possition = Integer.parseInt(request.getParameter("possitionId"));
-		//System.out.println(possition);
 
+		//ログインIdチェック用
 		User checkUser = new UserService().checkUser(loginId);
+
 
 
 		if(StringUtils.isBlank(loginId) == true) {
@@ -124,6 +128,7 @@ import boardsystem.service.UserService;
 
 		}else if(loginId.matches("\\w{6,20}")!=true){
 			messages.add("ログインIDは6～20文字の半角英数字で入力してください");
+
 
 		}else if (checkUser != null){
 		messages.add("指定されたログインIDは既に使用されています");
@@ -135,8 +140,12 @@ import boardsystem.service.UserService;
 		}else if(10 < name.length()){
 			messages.add("名前は10文字以内で入力してください");
 
-		} if(((password.matches("\\w{6,20}")) !=true) ){
-			messages.add("パスワードは6～20文字の半角英数字で入力してください");
+		} if(!(StringUtils.isBlank(password)==true)){
+			if(password.matches("\\w{6,20}")==!true) {
+
+				messages.add("パスワードは6～20文字の半角英数字で入力してください");
+
+		}
 
 		}
 		if (!checkPassword.equals(password)){
