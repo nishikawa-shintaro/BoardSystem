@@ -1,0 +1,14 @@
+html{
+    min-height: 100%;
+}
+body{
+    background: linear-gradient(#afe6ef,
+    #dcffb8 );
+}
+.errorMessages {
+	margin-top: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	color: red;
+}
