@@ -39,14 +39,14 @@
 
 <form action="newpost" method="post">
 	<label for="title">件名(30文字以下)</label>
-	<input name="title"  id="title" value="${title}" /> <br />
+	<input name="title"  id="title" value="${post.title}" /> <br />
 
 	<label for="category">カテゴリー(10文字以下)</label>
-	<input name="category"  id="category" value="${category}" /><br />
+	<input name="category"  id="category" value="${post.category}" /><br />
 
 
 	<label for="text">本文(1000文字以下)</label>
-	<textarea name="text" cols="50" rows="20" id="text" maxlength="1000"><c:out value="${text}" /></textarea> <br />
+	<textarea name="text" cols="50" rows="20" id="text" maxlength="1000"><c:out value="${post.text}" /></textarea> <br />
 
 
 	<input type="submit" value="登録" />

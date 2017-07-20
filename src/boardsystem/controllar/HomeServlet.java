@@ -28,7 +28,6 @@ public class HomeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-
 		//全ユーザーのリストを取得
 		List<User> userList = new UserService().getUserAll();
 		request.setAttribute("userList", userList);

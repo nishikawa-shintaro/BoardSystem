@@ -3,6 +3,7 @@
 <%@page isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html >
 <html>
 <head>
@@ -86,7 +87,7 @@
 				<form action="postDelete" method="post">
 					<input type="hidden" name="postId" id="postId" value="${post.id }" />
 					<c:choose>
-						<c:when test="${post.userId==loginUser.id }">
+						<c:when test="${userposts.userId==loginUser.id }">
 							<input type="submit" value="投稿削除" />
 						</c:when>
 						<c:when
@@ -94,26 +95,24 @@
 							<input type="submit" value="投稿削除" />
 						</c:when>
 						<c:when
-							test="${loginUser.possitionId == 3 && post.possitionId == 4 && loginUser.branchId == post.branchId}">
+							test="${loginUser.possitionId == 3 && userposts.possitionId == 4 && loginUser.branchId == userposts.branchId}">
 							<input type="submit" value="投稿削除" />
 						</c:when>
 					</c:choose>
 				</form>
 
-
-
 				<!-- コメント投稿 -->
 				<form action="newComment" method="post">
-					<label for="commentText">コメント</label> <input name="commentText"
-						id="commentText" value="${commentText}" /> <input type="hidden"
-						name="postId" id="postId" value="${post.id}" /> <input
-						type="submit" value="コメントする" />
+					<label for="text">コメント</label>
+					<input name="text" id="text" value="${text}" />
+					<input type="hidden" name="postId"  value="${userposts.id}" />
+					<input type="submit" value="コメントする" />
 				</form>
 
 				<!-- コメントを表示する -->
 
 				<c:forEach items="${commentList }" var="comment">
-					<c:if test="${ post.id == comment.postId }">
+					<c:if test="${ userposts.id == comment.postId }">
 						<c:forEach items="${userList}" var="user">
 							<c:if test="${ user.id == comment.userId }">
 								投稿者 : <c:out value="${user.name}" />

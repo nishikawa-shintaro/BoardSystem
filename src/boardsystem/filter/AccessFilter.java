@@ -28,7 +28,6 @@ public class AccessFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
-		//対象のサーブレットパスを文字列として取得
 		HttpSession session = ((HttpServletRequest) request).getSession();
 
 		List<String> messages = new ArrayList<String>();
@@ -37,7 +36,7 @@ public class AccessFilter implements Filter {
 		User user = (User)session.getAttribute("loginUser");
 
 		if(user== null){
-			System.out.println(user);
+			//System.out.println(user);
 			messages.add("ログインしてください");
 			session.setAttribute("errorMessages", messages);
 			((HttpServletResponse) response).sendRedirect("login");
@@ -45,7 +44,7 @@ public class AccessFilter implements Filter {
 		}else{
 
 			User accessCheck = new UserService().getUser(user.getId());
-				//本部社員かつ人事総務部以外でエラーメッセージを表示
+				//本部人事総務部以外でエラーメッセージを表示
 			if(!(accessCheck.getBranchId()==1 && accessCheck.getPossitionId()==1)){
 
 				messages.add("アクセス権限がありません");
@@ -62,13 +61,11 @@ public class AccessFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
-		// TODO 自動生成されたメソッド・スタブ
 
 	}
 
 	@Override
 	public void destroy() {
-		// TODO 自動生成されたメソッド・スタブ
 
 	}
 

@@ -1,12 +1,16 @@
 package boardsystem.controllar;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
 
 import boardsystem.beans.Comment;
 import boardsystem.beans.User;
@@ -21,7 +25,7 @@ public class NewCommentServlet extends HttpServlet {
 			throws IOException, ServletException {
 		;
 		// コメント情報の取得
-		String commentText = request.getParameter("commentText");
+		String text = request.getParameter("text");
 
 		// ログインユーザーの取得
 		User user = (User) request.getSession().getAttribute("loginUser");
@@ -31,14 +35,40 @@ public class NewCommentServlet extends HttpServlet {
 
 		// コメント情報の設定
 		Comment comment = new Comment();
-		comment.setText(commentText);
+		comment.setText(text);
 		comment.setPostId(Integer.parseInt(postId));
 		comment.setUserId(user.getId());
 		comment.setBranchId(user.getBranchId());
 		comment.setPossitionId(user.getPossitionId());
 
-		//DBに登録する
-		new CommentService().register(comment);
+		List<String> messages = new ArrayList<String>();
+
+		if(isValid(request,messages) == true){
+
+			new CommentService().register(comment);
 			response.sendRedirect("./");
+
+		}else{
+			//DBに登録する
+			new CommentService().register(comment);
+			response.sendRedirect("./");
+		}
+	}
+
+	private boolean isValid(HttpServletRequest request, List<String> messages) {
+
+		String text = request.getParameter("text");
+
+		if (StringUtils.isEmpty(text) == true) {
+			messages.add("コメントを入力してください");
+		}
+		if (text.length() > 500) {
+			messages.add("コメントは500文字以下で入力してください");
+		}
+		if (messages.size() == 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

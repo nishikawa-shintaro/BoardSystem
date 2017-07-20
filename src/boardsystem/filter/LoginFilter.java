@@ -29,20 +29,19 @@ public class LoginFilter implements Filter {
 		String url = ((HttpServletRequest) request).getServletPath();
 		HttpSession session = ((HttpServletRequest)request).getSession();
 		User user = (User)session.getAttribute("loginUser");
+		System.out.println(user);
 
 		List<String> messages = new ArrayList<String>();
 
-
 		if(url.equals("/login") || url.equals("/login.jsp") ){
 			chain.doFilter(request, response);   //条件と一致した場合サーブレッドの実行
-			//System.out.println(user);
+
 		}else{
 			if(user == null){
 				messages.add("ログインしてください");
 				session.setAttribute("errorMessages", messages);
 				((HttpServletResponse) response).sendRedirect("login");
 
-				return;
 			}else{
 				//アカウント停止チェック]
 				User loginCheck = new UserService().getUser(user.getId());
@@ -53,8 +52,6 @@ public class LoginFilter implements Filter {
 					messages.add("現在このアカウントは使用できません");
 					session.setAttribute("errorMessages", messages);
 					((HttpServletResponse) response).sendRedirect("login");
-
-				return;
 				}
 
 			}
