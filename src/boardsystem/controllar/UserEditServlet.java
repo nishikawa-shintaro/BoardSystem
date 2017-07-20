@@ -130,7 +130,7 @@ import boardsystem.service.UserService;
 			messages.add("ログインIDは6～20文字の半角英数字で入力してください");
 
 
-		}else if (checkUser != null){
+		}else if (checkUser != null && id != checkUser.getId() ){
 		messages.add("指定されたログインIDは既に使用されています");
 
 		}
@@ -142,11 +142,8 @@ import boardsystem.service.UserService;
 
 		} if(!(StringUtils.isBlank(password)==true)){
 			if(password.matches("\\w{6,20}")==!true) {
-
 				messages.add("パスワードは6～20文字の半角英数字で入力してください");
-
-		}
-
+			}
 		}
 		if (!checkPassword.equals(password)){
 			messages.add("パスワード（確認用）が正しくありません");
@@ -154,7 +151,6 @@ import boardsystem.service.UserService;
 		}
 		if(branch==0){
 			messages.add("支店を選択してください");
-			System.out.println(branch);
 
 		}
 		if(possition==0){

@@ -36,6 +36,7 @@
 
 
 <h1>新規投稿</h1>
+
 <form action="newpost" method="post">
 	<label for="title">件名(30文字以下)</label>
 	<input name="title"  id="title" value="${title}" /> <br />

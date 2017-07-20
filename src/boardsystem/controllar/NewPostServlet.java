@@ -42,19 +42,24 @@ import boardsystem.service.PostService;
 
 		//新規投稿の情報を設定し投稿する
 		Post post = new Post();
+
 		post.setTitle(request.getParameter("title"));
 		post.setCategory(request.getParameter("category"));
 		post.setText(request.getParameter("text"));
 		post.setUserId(user.getId());
 		post.setBranchId(user.getBranchId());
-			post.setPossitionId(user.getPossitionId());
+		post.setPossitionId(user.getPossitionId());
 
 		if(isValid(request, messages)==true){
 
 			new PostService().register(post);
-			//リダイレクト
 			response.sendRedirect("./");
+			return;
+
 		}else{
+
+			request.setAttribute("post",post);
+			System.out.println(post);
 			session.setAttribute("errorMessages", messages);
 			request.getRequestDispatcher("newpost.jsp").forward(request,response);
 		}
