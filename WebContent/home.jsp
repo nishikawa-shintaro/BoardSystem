@@ -3,8 +3,10 @@
 <%@page isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<!DOCTYPE html ">
+<!DOCTYPE html >
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -24,16 +26,16 @@
 <body>
 
 
-<c:if test="${ not empty errorMessages }">
-	<div class="errorMessages">
-		<ul>
-			<c:forEach items="${errorMessages}" var="message">
-				<li><c:out value="${message}" />
-			</c:forEach>
-		</ul>
-	</div>
-	<c:remove var="errorMessages" scope="session"/>
-</c:if>
+	<c:if test="${ not empty errorMessages }">
+		<div class="errorMessages">
+			<ul>
+				<c:forEach items="${errorMessages}" var="message">
+					<li><c:out value="${message}" />
+				</c:forEach>
+			</ul>
+		</div>
+		<c:remove var="errorMessages" scope="session" />
+	</c:if>
 
 
 	<!-- 絞込み検索の実装 -->
@@ -60,6 +62,7 @@
 	</form>
 
 <div class="main-contents">
+
 		<div class="posts">
 			<!--投稿表示-->
 			<c:forEach items="${userposts}" var="userposts">
@@ -69,7 +72,8 @@
 				</div>
 				<div class="text">
 					本文
-					<c:out value="${userposts.text}" />
+					<c:forEach var="str" items="${fn:split(userposts.text,'
+						')}" ><c:out value="${str}" /><br></c:forEach>
 				</div>
 				<div class="category">
 					カテゴリー:
@@ -104,7 +108,7 @@
 				<!-- コメント投稿 -->
 				<form action="newComment" method="post">
 					<label for="text">コメント</label>
-					<input name="text" id="text" value="${text}" />
+					<textarea name="text" id="text" cols="50" rows="20" id="text" maxlength="500"><c:out value="${text}" /></textarea> <br />
 					<input type="hidden" name="postId"  value="${userposts.id}" />
 					<input type="submit" value="コメントする" />
 				</form>
@@ -120,8 +124,9 @@
 							</c:if>
 						</c:forEach>
 						<div class="text">
-							本文
-							<c:out value="${userposts.text}" />
+						本文
+						<c:forEach var="str" items="${fn:split(comment.text,'
+		')}" ><c:out value="${str}" /><br></c:forEach>
 						</div>
 						<div class="date">
 							投稿日時 :

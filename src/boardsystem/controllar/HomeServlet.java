@@ -50,7 +50,7 @@ public class HomeServlet extends HttpServlet {
 		//System.out.println(request.getParameter("startdate"));
 		String enddate= request.getParameter("enddate");
 		//System.out.println(request.getParameter("enddate"));
-		String category = request.getParameter("category");
+		String category = request.getParameter("catgory");
 		//System.out.println(request.getParameter("category"));
 
 		request.setAttribute("searchcategory",category);

@@ -2,23 +2,27 @@
     pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>新規投稿</title>
-	<link href="./css/style.css" rel="stylesheet" type="text/css">
+	<link href="./css/post.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
-<h1>新規投稿画面</h1>
-
+<h1 class="main"><font color="white">わったいなBBSSystem</font></h1>
 
 <div class="header">
-	<c:out value="${loginUser.name}" />
-	<a href="./">ホーム</a>
-	<a href="logout">ログアウト</a>
-	<br />
+	<nav>
+		<ul>
+			<li><c:out value="${loginUser.name}" /></li>
+			<li><a href="./">ホーム</a></li>
+			<li><a href="logout">ログアウト</a></li>
+		</ul>
+	</nav>
 </div>
 
 <div class="main-contents">
@@ -36,7 +40,7 @@
 </div>
 
 
-<h1>新規投稿</h1>
+<h2 class="sub"><font color="white">新規投稿画面</font></h2>
 
 <form action="newpost" method="post">
 	<label for="title">件名(30文字以下)</label>

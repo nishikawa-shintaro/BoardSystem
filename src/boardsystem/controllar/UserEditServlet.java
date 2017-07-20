@@ -30,10 +30,39 @@ import boardsystem.service.UserService;
 		protected void doGet(HttpServletRequest request,HttpServletResponse response) throws IOException,
 		ServletException{
 
-		//編集するユーザーIDの情報を取得し保持する
-		//System.out.println(request.getParameter("editUserId"));
+		HttpSession session = request.getSession();
+		List<String> messages = new ArrayList<String>();
+
+		String checkId =request.getParameter("editUserId");
+
+		if(checkId==null || StringUtils.isEmpty(checkId)){
+
+			messages.add("不正な値が入力されました");
+			session.setAttribute("errorMessages", messages);
+			response.sendRedirect("usercontrol");
+			return;
+
+		}
+		//数値であるかチェック
+		if(!checkId.matches("^[0-9]*$")){
+
+			messages.add("不正な値が入力されました");
+			session.setAttribute("errorMessages", messages);
+			response.sendRedirect("usercontrol");
+			return;
+
+		}
+
 		int editUserId = Integer.parseInt(request.getParameter("editUserId"));
 		User editUser = new UserService().getUser(editUserId);
+
+		if(editUser == null){
+
+			messages.add("不正な値が入力されました");
+			session.setAttribute("errorMessages", messages);
+			response.sendRedirect("usercontrol");
+			return;
+		}
 
 		//支店情報を取得
 		List<Branch> branches = new BranchService().getBranch();
@@ -42,12 +71,10 @@ import boardsystem.service.UserService;
 		List<Possition> possitions = new PossitionService().getPossition();
 
 		request.setAttribute("editUser", editUser);
-
 		request.setAttribute("branches", branches);
-
 		request.setAttribute("possitions", possitions);
-
 		request.getRequestDispatcher("./useredit.jsp").forward(request, response);
+
 
 	}
 
@@ -58,19 +85,13 @@ import boardsystem.service.UserService;
 		List<String> messages = new ArrayList<String>();
 		HttpSession session = request.getSession();
 
-
 		User user = new User();
 
 		user.setId(Integer.parseInt(request.getParameter("id")));
-		//System.out.println(Integer.parseInt(request.getParameter("id")));
 		user.setLoginId(request.getParameter("loginId"));
-		//System.out.println(request.getParameter("loginId"));
 		user.setName(request.getParameter("name"));
-		//System.out.println(request.getParameter("name"));
 		user.setBranchId(Integer.parseInt(request.getParameter("branchId")));
-		//System.out.println(Integer.parseInt(request.getParameter("branchId")));
 		user.setPossitionId(Integer.parseInt(request.getParameter("possitionId")));
-		//System.out.println(Integer.parseInt(request.getParameter("possitionId")));
 
 		if(StringUtils.isBlank(request.getParameter("password")) != true){
 
@@ -120,8 +141,6 @@ import boardsystem.service.UserService;
 
 		//ログインIdチェック用
 		User checkUser = new UserService().checkUser(loginId);
-
-
 
 		if(StringUtils.isBlank(loginId) == true) {
 			messages.add("ログインIDを入力してください");
