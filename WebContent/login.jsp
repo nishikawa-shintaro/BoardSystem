@@ -11,9 +11,10 @@
 <link href="./css/login.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<h1 class="main"><font color="white">ログイン画面</font></h1>
+<h1 class="main"><font color="white">わったい菜BBSSystem</font></h1>
 
 <div class="main-contents">
+
 <c:if test="${ not empty errorMessages }">
 	<div class="errorMessages">
 		<ul>

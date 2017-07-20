@@ -4,7 +4,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<!DOCTYPE html >
+<!DOCTYPE html ">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -24,16 +24,16 @@
 <body>
 
 
-	<c:if test="${ not empty errorMessages }">
-		<div class="errorMessages">
-			<ul>
-				<c:forEach items="${errorMessages}" var="message">
-					<li><c:out value="${message}" />
-				</c:forEach>
-			</ul>
-		</div>
-		<c:remove var="errorMessages" scope="session" />
-	</c:if>
+<c:if test="${ not empty errorMessages }">
+	<div class="errorMessages">
+		<ul>
+			<c:forEach items="${errorMessages}" var="message">
+				<li><c:out value="${message}" />
+			</c:forEach>
+		</ul>
+	</div>
+	<c:remove var="errorMessages" scope="session"/>
+</c:if>
 
 
 	<!-- 絞込み検索の実装 -->
@@ -121,7 +121,7 @@
 						</c:forEach>
 						<div class="text">
 							本文
-							<c:out value="${comment.text }"></c:out>
+							<c:out value="${userposts.text}" />
 						</div>
 						<div class="date">
 							投稿日時 :

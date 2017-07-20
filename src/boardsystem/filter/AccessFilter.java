@@ -36,7 +36,6 @@ public class AccessFilter implements Filter {
 		User user = (User)session.getAttribute("loginUser");
 
 		if(user== null){
-			//System.out.println(user);
 			messages.add("ログインしてください");
 			session.setAttribute("errorMessages", messages);
 			((HttpServletResponse) response).sendRedirect("login");
@@ -50,13 +49,10 @@ public class AccessFilter implements Filter {
 				messages.add("アクセス権限がありません");
 				session.setAttribute("errorMessages",messages);
 				((HttpServletResponse) response).sendRedirect("./");
-
-				return;
 			}
 
 		}
 		chain.doFilter(request, response);
-
 	}
 
 	@Override

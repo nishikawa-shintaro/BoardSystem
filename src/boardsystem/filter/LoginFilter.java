@@ -29,15 +29,15 @@ public class LoginFilter implements Filter {
 		String url = ((HttpServletRequest) request).getServletPath();
 		HttpSession session = ((HttpServletRequest)request).getSession();
 		User user = (User)session.getAttribute("loginUser");
-		System.out.println(user);
 
 		List<String> messages = new ArrayList<String>();
 
-		if(url.equals("/login") || url.equals("/login.jsp") ){
+		if(url.equals("/login") || url.equals("/login.jsp") || url.contains("css")){
 			chain.doFilter(request, response);   //条件と一致した場合サーブレッドの実行
 
 		}else{
 			if(user == null){
+				System.out.println(url);
 				messages.add("ログインしてください");
 				session.setAttribute("errorMessages", messages);
 				((HttpServletResponse) response).sendRedirect("login");
@@ -53,7 +53,6 @@ public class LoginFilter implements Filter {
 					session.setAttribute("errorMessages", messages);
 					((HttpServletResponse) response).sendRedirect("login");
 				}
-
 			}
 		}
 	}
