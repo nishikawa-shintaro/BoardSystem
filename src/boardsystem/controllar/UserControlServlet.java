@@ -19,6 +19,7 @@ import boardsystem.service.UserService;;
 @WebServlet(urlPatterns = { "/usercontrol" })
 	public class UserControlServlet extends HttpServlet {
 		private static final long serialVersionUID = 1L;
+
 	@Override
 		protected void doGet(HttpServletRequest request,
 		HttpServletResponse response) throws IOException,ServletException{
@@ -34,7 +35,6 @@ import boardsystem.service.UserService;;
 		//役職情報を取得する
 		List<Possition> possitions = new PossitionService().getPossition();
 		request.setAttribute("possitions", possitions);
-
 
 		request.getRequestDispatcher("./usercontrol.jsp").forward(request, response);
 	}

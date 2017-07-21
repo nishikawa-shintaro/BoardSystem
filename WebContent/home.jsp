@@ -20,11 +20,11 @@ return false; }}
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ホーム</title>
-<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="./css/sukeruton.css" rel="stylesheet" type="text/css">
 
 </head>
 
-<h1>わったい菜 掲示板</h1>
+<h1 class="main"><font color="white">わったい菜BBSSystem</font></h1>
 
 <div class="header">
 	<c:out value="${loginUser.name}" />
@@ -56,119 +56,78 @@ return false; }}
 				<option value="">カテゴリーを選択して下さい</option>
 				<c:forEach items="${categories}" var="category">
 					<option value="${category}" <c:if test="${category == searchcategory}">selected</c:if>>
-						<c:out value="${category}">
-						</c:out></option>
+					<c:out value="${category}"></c:out></option>
 				</c:forEach>
 			</select>
 		</div>
-
 		<div class="seachDate">
 			<label>日付 <input type="date" name="startdate"
-				value="${startdate}"></label> <input type="date" name="enddate"
-				value="${enddate }"> <input type="submit" value="検索">
-
+			value="${startdate}"></label>
+			<input type="date" name="enddate" value="${enddate }">
+			<input type="submit" value="検索">
 		</div>
 	</form>
 
 <div class="main-contents">
 
 		<div class="posts">
-			<!--投稿表示-->
-			<c:forEach items="${userposts}" var="userposts">
-				<div class="title">
-					件名:
-					<c:out value="${userposts.title}" />
-				</div>
-				<div class="text">
-					本文
-					<c:forEach var="str" items="${fn:split(userposts.text,'
-						')}" ><c:out value="${str}" /><br></c:forEach>
-				</div>
-				<div class="category">
-					カテゴリー:
-					<c:out value="${userposts.category}" />
-				</div>
-				<div class="user">
-					投稿者 : <c:out value="${userposts.name}" />
-					<div class="insertdate">
-						投稿日時:
-						<c:out value="${userposts.insertdate}"/>
-					</div>
-				</div>
+		<!--投稿表示-->
+		<c:forEach items="${userposts}" var="userposts">
+			<div class="title">件名:<c:out value="${userposts.title}" /></div>
+			<div class="text">本文:
+				<c:forEach var="str" items="${fn:split(userposts.text,'
+')}" >		<c:out value="${str}" /><br></c:forEach></div>
+				<div class="category">カテゴリー:<c:out value="${userposts.category}" /></div>
+				<div class="user">投稿者 : <c:out value="${userposts.name}" /></div>
+				<div class="insertdate">投稿日時:<c:out value="${userposts.insertdate}"/></div>
 
-				<!-- 新規投稿削除 -->
-				<form action="postDelete" method="post">
-					<input type="hidden" name="postId" id="postId" value="${userposts.id }" />
-					<c:choose>
-						<c:when test="${userposts.userId==loginUser.id }">
-							<input type="submit" value="投稿削除" />
-						</c:when>
-						<c:when
-							test="${loginUser.branchId==1 && loginUser.possitionId==2}">
-							<input type="submit" value="投稿削除" />
-						</c:when>
-						<c:when
-							test="${loginUser.possitionId == 3 && userposts.possitionId == 4 && loginUser.branchId == userposts.branchId}">
-							<input type="submit" value="投稿削除" />
-						</c:when>
+			<!-- 新規投稿削除 -->
+			<form action="postDelete" method="post">
+				<input type="hidden" name="postId" id="postId" value="${userposts.id }" />
+				<c:choose>
+					<c:when test="${userposts.userId==loginUser.id }">
+						<input type="submit" value="投稿削除" /></c:when>
+					<c:when test="${loginUser.branchId==1 && loginUser.possitionId==2}">
+						<input type="submit" value="投稿削除" /></c:when>
+					<c:when test="${loginUser.possitionId == 3 && userposts.possitionId == 4 && loginUser.branchId == userposts.branchId}">
+						<input type="submit" value="投稿削除" /></c:when>
 					</c:choose>
-				</form>
+			</form>
 
-				<!-- コメント投稿 -->
-				<form action="newComment" method="post" onSubmit="return double()">
-					<label for="text">コメント</label>
-					<textarea name="text" id="text" cols="50" rows="20" id="text" maxlength="500"><c:out value="${text}" /></textarea> <br />
-					<input type="hidden" name="postId"  value="${userposts.id}" />
-					<input type="submit" value="コメントする" />
-				</form>
+			<!-- コメント投稿 -->
+			<form action="newComment" method="post" onSubmit="return double()">
+				<label for="text">コメント</label>
+				<textarea name="text" id="text" cols="50" rows="20" id="text" maxlength="500"><c:out value="${text}" /></textarea> <br />
+				<input type="hidden" name="postId"  value="${userposts.id}" />
+				<input type="submit" value="コメントする" />
+			</form>
 
-				<!-- コメントを表示する -->
-
-				<c:forEach items="${commentList }" var="comment">
-					<c:if test="${ userposts.id == comment.postId }">
-						<c:forEach items="${userList}" var="user">
-							<c:if test="${ user.id == comment.userId }">
-								投稿者 : <c:out value="${user.name}" />
-								<br />
-							</c:if>
-						</c:forEach>
-						<div class="text">
-						本文
-						<c:forEach var="str" items="${fn:split(comment.text,'
-		')}" ><c:out value="${str}" /><br></c:forEach>
-						</div>
-						<div class="date">
-							投稿日時 :
-							<fmt:formatDate value="${comment.insertdate}"
-								pattern="yyyy/MM/dd HH:mm:ss" />
-							<br />
-						</div>
-					</c:if>
-
+			<!-- コメントを表示する -->
+			<c:forEach items="${commentList }" var="comment">
+				<c:if test="${ userposts.id == comment.postId }">
+						投稿者 : <c:out value="${userposts.name}" /><br />
+					<div class="text">本文:
+					<c:forEach var="str" items="${fn:split(comment.text,'
+ 	')}" >			<c:out value="${str}" /><br></c:forEach></div>
+					<div class="date">投稿日時 :
+					<fmt:formatDate value="${comment.insertdate}" pattern="yyyy/MM/dd HH:mm:ss" /><br /></div>
 
 					<!-- コメントの削除 -->
-					<form action="commentDelete" method="post">
-						<input type="hidden" name="commentId" id="commentId"
-							value="${comment.id}" />
-						<c:choose>
-							<c:when test="${comment.userId == loginUser.id}">
-								<input type="submit" value="コメント削除" />
-							</c:when>
-							<c:when
-								test="${loginUser.branchId==1 && loginUser.possitionId == 2}">
-								<input type="submit" value="コメント削除" />
-							</c:when>
-							<c:when
-								test="${loginUser.possitionId == 3 && comment.possitionId == 4 && loginUser.branchId == comment.branchId}">
-								<input type="submit" value="コメント削除" />
-							</c:when>
-						</c:choose>
-					</form>
-				</c:forEach>
-			</c:forEach>
-		</div>
-	</div>
+					<c:if test="${loginUser.possitionId == 2|| comment.userId ==loginUser.id
+						||loginUser.possitionId == 3 && loginUser.branchId == comment.branchId}">
 
-	<div class="copyright">Copyright(c)Shintaro Nishikawa</div>
+						<form action="commentDelete" method="post">
+						<input type="hidden" name="commentId" id="commentId" value="${comment.id}" />
+						<input type="submit" value="コメント削除" />
+						</form>
+					</c:if>
+				</c:if>
+			</c:forEach>
+
+		</c:forEach>
+	</div>
+</div>
+
+<div class="copyright">Copyright(c)Shintaro Nishikawa</div>
 </body>
 </html>

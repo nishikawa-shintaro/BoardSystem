@@ -39,6 +39,7 @@ public class AccessFilter implements Filter {
 			messages.add("ログインしてください");
 			session.setAttribute("errorMessages", messages);
 			((HttpServletResponse) response).sendRedirect("login");
+
 			return;
 		}else{
 
@@ -49,6 +50,8 @@ public class AccessFilter implements Filter {
 				messages.add("アクセス権限がありません");
 				session.setAttribute("errorMessages",messages);
 				((HttpServletResponse) response).sendRedirect("./");
+
+				return;
 			}
 
 		}
