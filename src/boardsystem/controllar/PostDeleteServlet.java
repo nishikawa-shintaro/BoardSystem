@@ -24,7 +24,7 @@ public class PostDeleteServlet extends HttpServlet {
 			throws IOException, ServletException {
 
 		int postId = Integer.parseInt(request.getParameter("postId"));
-		System.out.println(Integer.parseInt(request.getParameter("postId")));
+		System.out.println(postId);
 
 		new PostService().delete(postId);
 		response.sendRedirect("./");

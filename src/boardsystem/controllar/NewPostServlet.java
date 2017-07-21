@@ -59,7 +59,6 @@ import boardsystem.service.PostService;
 		}else{
 
 			request.setAttribute("post",post);
-			System.out.println(post);
 			session.setAttribute("errorMessages", messages);
 			request.getRequestDispatcher("newpost.jsp").forward(request,response);
 		}

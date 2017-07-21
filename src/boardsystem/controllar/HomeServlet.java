@@ -45,20 +45,16 @@ public class HomeServlet extends HttpServlet {
 		request.setAttribute("categories",categories);
 		//System.out.println(categories);
 
-		//絞込み時間の指定の取得
+		//絞込みの指定の取得
 		String startdate= request.getParameter("startdate");
 		//System.out.println(request.getParameter("startdate"));
 		String enddate= request.getParameter("enddate");
 		//System.out.println(request.getParameter("enddate"));
-		String category = request.getParameter("catgory");
-		//System.out.println(request.getParameter("category"));
+		String category = request.getParameter("category");
 
 		request.setAttribute("searchcategory",category);
 		request.setAttribute("startdate",startdate);
 		request.setAttribute("enddate",enddate);
-
-
-
 
 		//初期値の指定
 		if(startdate == null || startdate.isEmpty()){
@@ -68,6 +64,15 @@ public class HomeServlet extends HttpServlet {
 		if(enddate==null || enddate.isEmpty()){
 			Date date= new Date();
 			enddate = new SimpleDateFormat("yyyy-MM-dd").format(date);
+
+		}
+		//終了日時が開始日時より早い場合,startdateとenddateを逆転させる
+		int deff = startdate.compareTo(enddate);
+		if(deff > 0){
+
+			String obj = startdate;
+			enddate = startdate;
+			startdate = obj;
 
 		}
 

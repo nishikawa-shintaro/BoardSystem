@@ -7,6 +7,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ユーザー新規登録画面</title>
 <link href="css/style.css" rel="stylesheet" type="text/css">
+
+<script>
+var set=0;
+function double() {
+if(set==0){ set=1; } else {
+alert("只今処理中です。\nそのままお待ちください。");
+return false; }}
+</script>
+
 </head>
 <body>
 
@@ -30,7 +39,7 @@
 	</div>
 
 	<h1>ユーザー新規登録</h1>
-	<form action="signup" method="post">
+	<form action="signup" method="post" onSubmit="return double()">
 		<label for="loginId">ログインID(半角英数字：6文字以上20文字以下)</label><br> <input
 			name="loginId" id="loginId" value="${newUser.loginId }" /><br /> <label
 			for="password">パスワード(半角文字：6文字以上20文字以下)</label><br> <input

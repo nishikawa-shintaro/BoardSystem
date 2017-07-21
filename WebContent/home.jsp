@@ -8,6 +8,15 @@
 
 <!DOCTYPE html >
 <html>
+<!-- 多重クリック対策 -->
+<script>
+var set=0;
+function double() {
+if(set==0){ set=1; } else {
+alert("只今処理中です。\nそのままお待ちください。");
+return false; }}
+</script>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ホーム</title>
@@ -89,7 +98,7 @@
 
 				<!-- 新規投稿削除 -->
 				<form action="postDelete" method="post">
-					<input type="hidden" name="postId" id="postId" value="${post.id }" />
+					<input type="hidden" name="postId" id="postId" value="${userposts.id }" />
 					<c:choose>
 						<c:when test="${userposts.userId==loginUser.id }">
 							<input type="submit" value="投稿削除" />
@@ -106,7 +115,7 @@
 				</form>
 
 				<!-- コメント投稿 -->
-				<form action="newComment" method="post">
+				<form action="newComment" method="post" onSubmit="return double()">
 					<label for="text">コメント</label>
 					<textarea name="text" id="text" cols="50" rows="20" id="text" maxlength="500"><c:out value="${text}" /></textarea> <br />
 					<input type="hidden" name="postId"  value="${userposts.id}" />

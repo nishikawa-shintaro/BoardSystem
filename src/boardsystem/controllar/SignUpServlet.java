@@ -70,6 +70,7 @@ public class SignUpServlet extends HttpServlet{
 
 		}else{
 
+			request.setAttribute("user",user);
 			request.setAttribute("possitions", possitions);
 			request.setAttribute("branches", branches);
 			session.setAttribute("errorMessages", messages);

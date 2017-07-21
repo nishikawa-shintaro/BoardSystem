@@ -9,6 +9,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ユーザー編集</title>
 <link href="./css/style.css" rel="stylesheet" type="text/css">
+
+<script>
+var set=0;
+function double() {
+if(set==0){ set=1; } else {
+alert("只今処理中です。\nそのままお待ちください。");
+return false; }}
+</script>
+
 </head>
 <body>
 	<h1>ユーザー編集画面</h1>
@@ -36,7 +45,7 @@
 
 		<!-- ユーザー編集画面の表示 -->
 
-		<form action="useredit" method="post">
+		<form action="useredit" method="post" onSubmit="return double()">
 			<label for="editName">${editUser.name}さんの編集</label><br /> <input
 				type="hidden" name="id" id="id" value="${editUser.id}" /><br /> <label
 				for="loginId">ログインID(半角英数字：6文字以上20文字以下)</label><br> <input
