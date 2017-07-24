@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ユーザー編集</title>
-<link href="./css/style.css" rel="stylesheet" type="text/css">
+<link href="css/useredit.css" rel="stylesheet" type="text/css">
 
 <script>
 var set=0;
@@ -20,13 +20,12 @@ return false; }}
 
 </head>
 <body>
-	<h1>ユーザー編集画面</h1>
 
 	<div class="main-contents">
 
 		<div class="header">
-			<a href="./">ホーム</a> <a href="usercontrol">戻る</a>
 			<c:out value="${loginUser.name}" />
+			<a href="./">ホーム</a> <a href="usercontrol">戻る</a>
 			<a href="logout">ログアウト</a>
 		</div>
 
@@ -41,7 +40,7 @@ return false; }}
 			<c:remove var="errorMessages" scope="session" />
 		</c:if>
 
-
+		<h1 class="main"><font color="white">ユーザー編集画面</font></h1>
 
 		<!-- ユーザー編集画面の表示 -->
 
