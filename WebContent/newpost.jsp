@@ -22,16 +22,11 @@ return false; }}
 </head>
 <body>
 
-<h1 class="main"><font color="white">わったいなBBSSystem</font></h1>
 
 <div class="header">
-	<nav>
-		<ul>
-			<li><c:out value="${loginUser.name}" /></li>
-			<li><a href="./">ホーム</a></li>
-			<li><a href="logout">ログアウト</a></li>
-		</ul>
-	</nav>
+			ログイン中:<c:out value="${loginUser.name}" />
+			<a href="./">ホーム</a>
+			<a href="logout">ログアウト</a>
 </div>
 
 <div class="main-contents">
@@ -49,10 +44,8 @@ return false; }}
 </div>
 
 
-<h2 class="sub"><font color="white">新規投稿画面</font></h2>
-
 <form action="newpost" method="post" onSubmit="return double()">
-	<label for="title">件名(30文字以下)</label>
+	<label for="title">件名(30文字以下)</label><br>
 	<input name="title"  id="title" maxlength="30" value="${post.title}" /> <br />
 
 	<label for="category">カテゴリー(10文字以下)</label>

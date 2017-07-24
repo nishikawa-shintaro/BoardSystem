@@ -20,7 +20,7 @@ return false; }}
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ホーム</title>
-<link href="./css/sukeruton.css" rel="stylesheet" type="text/css">
+<link href="css/home.css" rel="stylesheet" type="text/css">
 
 </head>
 

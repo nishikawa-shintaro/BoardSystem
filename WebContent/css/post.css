@@ -11,50 +11,9 @@ h1.main{
    text-color: white;
    text-shadow:-1px -1px 2px rgba(255,255,
    255,0.5),3px 2px 1px rgba(0,0,0,0.5);
-
 }
-h2.sub{
-    text-align: center;
-}
-nav{
-    border-top: 10px solid #23ddfb;
-    background: rgba(58, 40, 142, 0.46);
-}
-
-nav ul{
-    overflow:hidden;
-    list-style:none;
-    display flex;
-    justify-content: flex-end;
-    margin:0 auto;
-    padding: 0;
-    max-width: 100px;
-}
-
-navi li{
-    box-sizing: border-box;
-    float left;
-    border-right; 20px solid #3eb6e4
-    width:30%;
-
-}
-nav li:last-child{
-    border-right: nore;
-}
-
-navi li a{
-    display:block;
-    padding: 30px 0;
-    width: 100%;
-    text-decoration: nore;
-    text-alian: center;
-    font-size: 50px;
-    color: #ffffff;
-}
-
-
-nav li a:hover{
-    background: #3ba4a7;
+.header{
+    text-align: right;
 }
 
 input[type="submit"]{

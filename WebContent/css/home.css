@@ -5,6 +5,14 @@ body{
     background: linear-gradient(#4bd2c5,
     #dcffb8 );
 }
+
+form{
+    font-weight:bold;
+    text-align: -webkit-center;
+}
+.header{
+    text-align: right;
+}
 errorMessages {
 	margin-top: 10px;
 	margin-right: 10px;
