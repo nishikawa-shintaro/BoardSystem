@@ -20,7 +20,10 @@ return false; }}
 <body>
 
 	<div class="header">
-		<a href="./">ホーム</a> <a href="usercontrol">戻る</a> <a href="logout">ログアウト</a>
+		ログイン中:<c:out value="${loginUser.name}" />
+		<a href="./">ホーム</a>
+		<a href="usercontrol">戻る</a>
+		<a href="logout">ログアウト</a>
 		<br />
 	</div>
 
@@ -38,7 +41,7 @@ return false; }}
 		</c:if>
 	</div>
 
-	<h1 class="main"><font color="white">ユーザー新規登録</font></h1>
+	<h1 class="main"><font color="white">新規投稿画面</font></h1>
 
 	<form action="signup" method="post" onSubmit="return double()">
 		<label for="loginId">ログインID(半角英数字：6文字以上20文字以下)</label><br> <input

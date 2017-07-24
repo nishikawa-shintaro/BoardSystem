@@ -24,17 +24,15 @@ return false; }}
 
 </head>
 
-<h1 class="main"><font color="white">わったい菜BBSSystem</font></h1>
-
 <div class="header">
-	<c:out value="${loginUser.name}" />
+	ログイン中:<c:out value="${loginUser.name}" />
 	<a href="./">ホーム</a> <a href="newpost">新規投稿</a> <a href="usercontrol">ユーザー管理</a>
 	<a href="logout">ログアウト</a> <br />
 </div>
 
+<h1 class="main"><font color="white">わったい菜BBSSystem</font></h1>
+
 <body>
-
-
 	<c:if test="${ not empty errorMessages }">
 		<div class="errorMessages">
 			<ul>
@@ -51,7 +49,7 @@ return false; }}
 
 	<form action="index.jsp" method="get">
 		<div class="search">
-			<label for="searchCategory">絞込み検索機能</label>
+			<label for="searchCategory">絞込み検索機能</label><br>
 			<select name="category">
 				<option value="">カテゴリーを選択して下さい</option>
 				<c:forEach items="${categories}" var="category">

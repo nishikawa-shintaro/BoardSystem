@@ -13,6 +13,10 @@ form{
 .header{
     text-align: right;
 }
+.main-contents{
+    text-align:center;
+
+}
 errorMessages {
 	margin-top: 10px;
 	margin-right: 10px;

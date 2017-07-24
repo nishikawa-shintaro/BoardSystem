@@ -24,7 +24,7 @@ return false; }}
 	<div class="main-contents">
 
 		<div class="header">
-			<c:out value="${loginUser.name}" />
+			ログイン中:<c:out value="${loginUser.name}" />
 			<a href="./">ホーム</a> <a href="usercontrol">戻る</a>
 			<a href="logout">ログアウト</a>
 		</div>

@@ -43,16 +43,17 @@ return false; }}
 </c:if>
 </div>
 
+<h1 class="main"><font color="white">ユーザー新規登録</font></h1>
+
 
 <form action="newpost" method="post" onSubmit="return double()">
 	<label for="title">件名(30文字以下)</label><br>
 	<input name="title"  id="title" maxlength="30" value="${post.title}" /> <br />
 
-	<label for="category">カテゴリー(10文字以下)</label>
+	<label for="category">カテゴリー(10文字以下)</label><br>
 	<input name="category"  id="category" maxlength="10" value="${post.category}" /><br />
 
-
-	<label for="text">本文(1000文字以下)</label>
+	<label for="text">本文(1000文字以下)</label><br>
 	<textarea name="text" cols="50" rows="20" id="text" maxlength="1000"><c:out value="${post.text}" /></textarea> <br />
 
 

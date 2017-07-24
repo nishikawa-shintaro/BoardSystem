@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -42,6 +43,7 @@ public class NewCommentServlet extends HttpServlet {
 		comment.setPossitionId(user.getPossitionId());
 
 		List<String> messages = new ArrayList<String>();
+		HttpSession session = request.getSession();
 
 		if(isValid(request,messages) == true){
 
@@ -49,8 +51,8 @@ public class NewCommentServlet extends HttpServlet {
 			response.sendRedirect("./");
 
 		}else{
-			//DBに登録する
-			new CommentService().register(comment);
+
+			session.setAttribute("errorMessages", messages);
 			response.sendRedirect("./");
 		}
 	}
@@ -58,8 +60,9 @@ public class NewCommentServlet extends HttpServlet {
 	private boolean isValid(HttpServletRequest request, List<String> messages) {
 
 		String text = request.getParameter("text");
+		System.out.println(text);
 
-		if (!StringUtils.isEmpty(text) == true) {
+		if (StringUtils.isBlank(text) == true) {
 			messages.add("コメントを入力してください");
 		}
 		if (text.length() > 500) {

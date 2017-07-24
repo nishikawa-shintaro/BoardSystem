@@ -26,7 +26,7 @@
 </script>
 
 <div class="header">
-	<c:out value="${loginUser.name}" />
+	ログイン中:<c:out value="${loginUser.name}" />
 	<a href="./">ホーム</a>
 	<a href="signup">ユーザー新規登録</a>
 	<a href="logout">ログアウト</a>
