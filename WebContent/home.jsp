@@ -26,7 +26,11 @@ return false; }}
 
 <div class="header">
 	ログイン中:<c:out value="${loginUser.name}" />
-	<a href="./">ホーム</a> <a href="newpost">新規投稿</a> <a href="usercontrol">ユーザー管理</a>
+	<a href="./">ホーム</a>
+	<a href="newpost">新規投稿</a>
+	<c:if test="${ loginUser.branchId == 1 && loginUser.possitionId == 1 }">
+	<a href="usercontrol">ユーザー管理</a>
+	</c:if>
 	<a href="logout">ログアウト</a> <br />
 </div>
 

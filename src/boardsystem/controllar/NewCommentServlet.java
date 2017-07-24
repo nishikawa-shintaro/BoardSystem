@@ -60,7 +60,6 @@ public class NewCommentServlet extends HttpServlet {
 	private boolean isValid(HttpServletRequest request, List<String> messages) {
 
 		String text = request.getParameter("text");
-		System.out.println(text);
 
 		if (StringUtils.isBlank(text) == true) {
 			messages.add("コメントを入力してください");

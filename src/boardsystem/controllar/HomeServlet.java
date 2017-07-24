@@ -66,6 +66,7 @@ public class HomeServlet extends HttpServlet {
 			enddate = new SimpleDateFormat("yyyy-MM-dd").format(date);
 
 		}
+
 		//終了日時が開始日時より早い場合,startdateとenddateを逆転させる
 		int deff = startdate.compareTo(enddate);
 		if(deff > 0){
@@ -73,7 +74,6 @@ public class HomeServlet extends HttpServlet {
 			String obj = startdate;
 			enddate = startdate;
 			startdate = obj;
-
 		}
 
 		List<UserPost> userposts = new UserPostService().getPosts(startdate, enddate, category);
