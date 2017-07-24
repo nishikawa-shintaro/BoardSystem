@@ -98,8 +98,8 @@ return false; }}
 
 			<!-- コメント投稿 -->
 			<form action="newComment" method="post" onSubmit="return double()">
-				<label for="text">コメント</label>
-				<textarea name="text" id="text" cols="50" rows="20" id="text" maxlength="500"><c:out value="${text}" /></textarea> <br />
+				<label for="text">コメント</label><br>
+				<textarea name="text" id="text" cols="60" rows="13" id="text" maxlength="500"><c:out value="${text}" /></textarea> <br />
 				<input type="hidden" name="postId"  value="${userposts.id}" />
 				<input type="submit" value="コメントする" />
 			</form>

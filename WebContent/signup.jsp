@@ -41,7 +41,7 @@ return false; }}
 		</c:if>
 	</div>
 
-	<h1 class="main"><font color="white">新規投稿画面</font></h1>
+	<h1 class="main"><font color="white">新規ユーザー登録画面</font></h1>
 
 	<form action="signup" method="post" onSubmit="return double()">
 		<label for="loginId">ログインID(半角英数字：6文字以上20文字以下)</label><br> <input

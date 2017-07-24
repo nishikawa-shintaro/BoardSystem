@@ -48,7 +48,7 @@ return false; }}
 
 <form action="newpost" method="post" onSubmit="return double()">
 	<label for="title">件名(30文字以下)</label><br>
-	<input name="title"  id="title" maxlength="30" value="${post.title}" /> <br />
+	<textarea name="title" cols="35" rows="5" id="title" maxlength="30"><c:out value="${post.title}" /></textarea><br />
 
 	<label for="category">カテゴリー(10文字以下)</label><br>
 	<input name="category"  id="category" maxlength="10" value="${post.category}" /><br />
